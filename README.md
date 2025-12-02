@@ -69,7 +69,6 @@ Grave um vídeo curto (Loom, YouTube não listado ou similar) explicando:
 - Modelagem e queries do MySQL  
 - Uso correto de HTML, CSS, JS e jQuery  
 - Autonomia e capacidade de resolução de problemas  
-- Clareza na comunicação técnica (vídeo)  
 
 ---
 
