@@ -16,9 +16,10 @@ class AppSchema extends CakeSchema {
 
     public $service_providers = array(
         'id' => array('type' => 'integer', 'null' => false, 'key' => 'primary'),
-        'name' => array('type' => 'string', 'length' => 255, 'null' => false),
-        'email' => array('type' => 'string', 'length' => 255, 'null' => false),
-        'phone' => array('type' => 'string', 'length' => 20, 'null' => false),
+        'first_name' => array('type' => 'string', 'length' => 100, 'null' => false),
+        'last_name' => array('type' => 'string', 'length' => 100, 'null' => false),
+        'email' => array('type' => 'string', 'length' => 100, 'null' => false),
+        'phone' => array('type' => 'string', 'length' => 15, 'null' => false),
         'photo' => array('type' => 'string', 'length' => 255, 'null' => true),
         'service_id' => array('type' => 'integer', 'null' => false),
         'price' => array('type' => 'decimal', 'length' => '10,2', 'null' => false),
