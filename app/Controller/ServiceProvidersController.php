@@ -62,7 +62,7 @@ class ServiceProvidersController extends AppController {
             
             if ($this->ServiceProvider->validates()) {
                 if ($this->ServiceProvider->save($this->request->data)) {
-                    $this->Flash->success('Prestador cadastrado com sucesso!');
+                    $this->Flash->notification('Prestador cadastrado com sucesso!');
                     return $this->redirect(array('action' => 'index'));
                 }
             }
@@ -117,10 +117,10 @@ class ServiceProvidersController extends AppController {
             }
 
             if ($this->ServiceProvider->save($this->request->data)) {
-                $this->Flash->success('Prestador atualizado com sucesso!');
+                $this->Flash->notification('Prestador atualizado com sucesso!');
                 return $this->redirect(array('action' => 'index'));
             }
-            $this->Flash->error('Erro ao atualizar. Verifique os dados.');
+            $this->Flash->notification('Erro ao atualizar. Verifique os dados.', array('params' => array('class' => 'error')));
         } else {
             $this->request->data = $this->ServiceProvider->findById($id);
         }
@@ -135,9 +135,9 @@ class ServiceProvidersController extends AppController {
             throw new NotFoundException('Prestador não encontrado');
         }
         if ($this->ServiceProvider->delete()) {
-            $this->Flash->success('Prestador removido com sucesso!');
+            $this->Flash->notification('Prestador removido com sucesso!');
         } else {
-            $this->Flash->error('Erro ao remover prestador.');
+            $this->Flash->notification('Erro ao remover prestador.', array('params' => array('class' => 'error')));
         }
         return $this->redirect(array('action' => 'index'));
     }
