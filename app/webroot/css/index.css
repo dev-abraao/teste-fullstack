@@ -107,7 +107,7 @@ nav {
     text-decoration: none;
     color: #667eea;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 12px;
     transition: all 0.3s ease;
 }
 
@@ -130,7 +130,7 @@ nav {
 .nav-link.btn-import {
     background-color:transparent;
     border: 1px solid var(--gray-300);
-    border-radius: 8px;
+    border-radius: 12px;
     color: var(--gray-700);
     font-weight: 600;
 }
@@ -147,7 +147,7 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     background: white;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--gray-200);
