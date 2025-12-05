@@ -127,46 +127,54 @@ tbody tr:last-child {
 }
 
 .btn-info {
-    background-color: #17a2b8;
-    color: white;
+    color: black;
+    font-size: 20px;
 }
 
 .btn-info:hover {
-    background-color: #138496;
+    transition: ease-in-out 0.2s;
+    scale: 130%;
 }
 
 .btn-warning {
-    background-color: #ffc107;
-    color: #333;
+    color: black;
+    font-size: 20px;
 }
 
 .btn-warning:hover {
-    background-color: #e0a800;
+    transition: ease-in-out 0.2s;
+    scale: 130%;
 }
 
 .btn-danger {
-    background-color: #dc3545;
-    color: white;
+    color:black;
+    font-size: 20px;
 }
 
 .btn-danger:hover {
-    background-color: #c82333;
+    transition: ease-in-out 0.2s;
+    scale: 130%;
 }
 
 .actions {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
     gap: 5px;
 }
 
 .pagination {
-    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
 }
 
 .pagination-links {
-    margin-top: 10px;
     display: flex;
+    font-weight: bold;
     justify-content: center;
+    margin-right: 10px;
     gap: 5px;
 }
 

@@ -48,9 +48,9 @@ echo $this->Html->css('index');
                         <tr>
                             <th>Prestador</th>
                             <th>Telefone</th>
-                            <th>Serviço</th>
-                            <th>Preço</th>
-                            <th>Ações</th>
+                            <th>Serviços</th>
+                            <th>Valor</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,26 +77,26 @@ echo $this->Html->css('index');
                             </td>
                         </tr>
                         <?php endforeach; ?>
+                        <tr>
+                            <td colspan="5">
+                            <div class="pagination">
+                                <?php echo $this->Paginator->counter(array('format' => 'Página {:page} de {:pages}')); ?>
+                                <div class="pagination-links">
+                                    <?php
+                                    echo $this->Paginator->first('<<', array('escape' => false));
+                                    echo $this->Paginator->prev('Anterior', array('escape' => false), null, array('class' => 'disabled'));
+                                    echo $this->Paginator->numbers(array('separator' => ''));
+                                    echo $this->Paginator->next('Próximo', array('escape' => false), null, array('class' => 'disabled'));
+                                    echo $this->Paginator->last('>>', array('escape' => false));
+                                    ?>
+                                </div>
+                            </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 
-                <div class="pagination">
-                    <?php echo $this->Paginator->counter(array('format' => 'Página {:page} de {:pages}')); ?>
-                    <div class="pagination-links">
-                        <?php
-                        echo $this->Paginator->first('<<', array('escape' => false));
-                        echo $this->Paginator->prev('<', array('escape' => false), null, array('class' => 'disabled'));
-                        echo $this->Paginator->numbers(array('separator' => ''));
-                        echo $this->Paginator->next('>', array('escape' => false), null, array('class' => 'disabled'));
-                        echo $this->Paginator->last('>>', array('escape' => false));
-                        ?>
-                    </div>
-                </div>
             <?php endif; ?>
         </main>
-
-        <footer>
-            <p>&copy; <?php echo date('Y'); ?> - Sistema de Prestadores de Serviço</p>
-        </footer>
     </div>
 </body>
