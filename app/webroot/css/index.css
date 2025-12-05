@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #FAFAFA;
     color: #333;
     line-height: 1.6;
 }
@@ -24,9 +24,41 @@ body {
     gap: 15px;
 }
 
+.provider-photo {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.provider-avatar {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary-red);
+    color: var(--primary-red);
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
 .provider-details {
     display: flex;
     flex-direction: column;
+    gap: 2px;
+}
+
+.provider-name {
+    color: var(--gray-900);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.provider-email {
+    color: var(--gray-600);
+    font-size: 0.85rem;
 }
 
 header {
@@ -35,11 +67,16 @@ header {
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 2px solid #667eea;
 }
 
-header h1 {
-    color: #667eea;
+.title {
+    font-size: 2rem;
+    color: var(--gray-900);
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--gray-600);
 }
 
 nav {
@@ -61,13 +98,21 @@ nav {
 }
 
 .nav-link.btn-primary {
-    background-color: #667eea;
+    background-color: var(--primary-red);
     color: white;
 }
 
 .nav-link.btn-primary:hover {
-    background-color: #5a6fd6;
+    background-color: var(--primary-red-hover);
 }
+
+.nav-link.btn-import {
+    background-color:transparent;
+    border: 2px solid var(--gray-300);
+    border-radius: 8px;
+    color: var(--gray-700);
+}
+
 
 table {
     width: 100%;
@@ -86,8 +131,8 @@ table {
 }
 
 thead {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: var(--gray-50);
+    color: var(--gray-600);
 }
 
 th, td {
@@ -97,7 +142,6 @@ th, td {
 
 th {
     font-weight: 600;
-    text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
 }

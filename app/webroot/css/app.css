@@ -1,14 +1,20 @@
 * {
     font-family: 'Inter', sans-serif;
+    font-weight: 400;
 }
 
 :root {
-    --vermelho-primario: #FF2B34
-    --vermelho-secundario: #FFF1F2
-    --sucesso-primario: #039855
-    --sucesso-100: #D1FADF
-    --sucesso-50: #ECFDF3
-    --gray-600: #535862
-    --gray-900: #181D27
-    --gray-50: #FAFAFA
+    --primary-red: #FF2B34;
+    --primary-red-hover: #d8262f;
+    --secondary-red: #FFF1F2;
+    --primary-green: #039855;
+
+    --green-100: #D1FADF;
+    --green-50: #ECFDF3;
+    --gray-900: #181D27;
+    --gray-700: #414651;
+    --gray-600: #535862;
+    --gray-300: #D5D7DA;
+    --gray-200: #E9EAEB;
+    --gray-50: #FAFAFA;
 }
