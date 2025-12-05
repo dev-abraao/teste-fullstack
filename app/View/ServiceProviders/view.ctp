@@ -3,7 +3,7 @@
 <p><strong>Nome:</strong> <?php echo h($serviceProvider['ServiceProvider']['first_name'] . ' ' . $serviceProvider['ServiceProvider']['last_name']); ?></p>
 <p><strong>Email:</strong> <?php echo h($serviceProvider['ServiceProvider']['email']); ?></p>
 <p><strong>Telefone:</strong> <?php echo h($serviceProvider['ServiceProvider']['phone']); ?></p>
-<p><strong>Serviço:</strong> <?php echo h($serviceProvider['Service']['name']); ?></p>
+<p><strong>Serviço:</strong> <?php echo h($serviceProvider['ServiceProvider']['service']); ?></p>
 <p><strong>Preço:</strong> R$ <?php echo number_format($serviceProvider['ServiceProvider']['price'], 2, ',', '.'); ?></p>
 
 <?php if (!empty($serviceProvider['ServiceProvider']['photo'])): ?>

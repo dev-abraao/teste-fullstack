@@ -4,13 +4,6 @@ App::uses('AppModel', 'Model');
 
 class ServiceProvider extends AppModel {
     
-    public $belongsTo = array(
-        'Service' => array(
-            'className' => 'Service',
-            'foreignKey' => 'service_id',
-        )
-    );
-
     public $validate = array(
         'first_name' => array(
             'notBlank' => array(
@@ -56,10 +49,24 @@ class ServiceProvider extends AppModel {
                 'message' => 'Telefone deve ter no máximo 15 caracteres'
             )
         ),
-        'service_id' => array(
+        'service' => array(
             'notBlank' => array(
                 'rule' => 'notBlank',
                 'message' => 'Serviço é obrigatório'
+            ),
+            'maxLength' => array(
+                'rule' => array('maxLength', 50),
+                'message' => 'Serviço deve ter no máximo 50 caracteres'
+            )
+        ),
+        'description' => array(
+            'notBlank' => array(
+                'rule' => 'notBlank',
+                'message' => 'Descrição é obrigatória'
+            ),
+            'maxLength' => array(
+                'rule' => array('maxLength', 500),
+                'message' => 'Descrição deve ter no máximo 500 caracteres'
             )
         ),
         'price' => array(

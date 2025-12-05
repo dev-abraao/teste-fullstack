@@ -17,7 +17,7 @@
             <td><?php echo h($provider['ServiceProvider']['first_name'] . ' ' . $provider['ServiceProvider']['last_name']); ?></td>
             <td><?php echo h($provider['ServiceProvider']['email']); ?></td>
             <td><?php echo h($provider['ServiceProvider']['phone']); ?></td>
-            <td><?php echo h($provider['Service']['name']); ?></td>
+            <td><?php echo h($provider['ServiceProvider']['service']); ?></td>
             <td>R$ <?php echo number_format($provider['ServiceProvider']['price'], 2, ',', '.'); ?></td>
             <td>
                 <?php echo $this->Html->link('Ver', array('action' => 'view', $provider['ServiceProvider']['id'])); ?>

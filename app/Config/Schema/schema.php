@@ -21,13 +21,13 @@ class AppSchema extends CakeSchema {
         'email' => array('type' => 'string', 'length' => 100, 'null' => false),
         'phone' => array('type' => 'string', 'length' => 15, 'null' => false),
         'photo' => array('type' => 'string', 'length' => 255, 'null' => true),
-        'service_id' => array('type' => 'integer', 'null' => false),
+        'service' => array('type' => 'string', 'length' => 50, 'null' => false),
+        'description' => array('type' => 'text', 'null' => true),
         'price' => array('type' => 'decimal', 'length' => '10,2', 'null' => false),
         'created' => array('type' => 'datetime', 'null' => true),
         'modified' => array('type' => 'datetime', 'null' => true),
         'indexes' => array(
             'PRIMARY' => array('column' => 'id', 'unique' => 1),
-            'service_id' => array('column' => 'service_id'),
         ),
         'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB'),
     );

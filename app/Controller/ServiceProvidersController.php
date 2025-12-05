@@ -4,6 +4,8 @@ App::uses('AppController', 'Controller');
 
 class ServiceProvidersController extends AppController {
 
+    public $uses = array('ServiceProvider', 'Service');  // Adicionar Service
+
     public function index() {
         $this->layout = false;
         $this->set('serviceProviders', $this->ServiceProvider->find('all'));
@@ -15,26 +17,24 @@ class ServiceProvidersController extends AppController {
         if ($this->request->is('post')) {
             $this->ServiceProvider->create();
             
-        if (!empty($this->request->data['ServiceProvider']['photo']['name'])) {
-            $photo = $this->request->data['ServiceProvider']['photo'];
-            
-            $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
-            $filename = uniqid('photo_') . '.' . $extension;
-            
-            $uploadDir = WWW_ROOT . 'img' . DS . 'uploads' . DS;
-            
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0755, true);
-            }
-            
-            if (move_uploaded_file($photo['tmp_name'], $uploadDir . $filename)) {
-                $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
+            if (!empty($this->request->data['ServiceProvider']['photo']['name'])) {
+                $photo = $this->request->data['ServiceProvider']['photo'];
+                $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
+                $filename = uniqid('photo_') . '.' . $extension;
+                $uploadDir = WWW_ROOT . 'img' . DS . 'uploads' . DS;
+                
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+                
+                if (move_uploaded_file($photo['tmp_name'], $uploadDir . $filename)) {
+                    $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
+                } else {
+                    $this->request->data['ServiceProvider']['photo'] = null;
+                }
             } else {
                 $this->request->data['ServiceProvider']['photo'] = null;
             }
-        } else {
-            $this->request->data['ServiceProvider']['photo'] = null;
-        }
             
             $this->ServiceProvider->set($this->request->data);
             
@@ -44,11 +44,11 @@ class ServiceProvidersController extends AppController {
                     return $this->redirect(array('action' => 'index'));
                 }
             }
-            
         }
 
-        $services = $this->ServiceProvider->Service->find('list');
-        $this->set(compact('services'));
+        // Buscar sugestões de serviços
+        $serviceSuggestions = $this->Service->find('list', array('fields' => array('name', 'name')));
+        $this->set(compact('serviceSuggestions'));
     }
 
     public function view($id = null) {
@@ -70,28 +70,26 @@ class ServiceProvidersController extends AppController {
             throw new NotFoundException('Prestador não encontrado');
         }
 
-                if (!empty($this->request->data['ServiceProvider']['photo']['name'])) {
-            $photo = $this->request->data['ServiceProvider']['photo'];
-            
-            $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
-            $filename = uniqid('photo_') . '.' . $extension;
-            
-            $uploadDir = WWW_ROOT . 'img' . DS . 'uploads' . DS;
-            
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0755, true);
-            }
-            
-            if (move_uploaded_file($photo['tmp_name'], $uploadDir . $filename)) {
-                $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
-            } else {
-                $this->request->data['ServiceProvider']['photo'] = null;
-            }
-        } else {
-            $this->request->data['ServiceProvider']['photo'] = null;
-        }
-
         if ($this->request->is(array('post', 'put'))) {
+            if (!empty($this->request->data['ServiceProvider']['photo']['name'])) {
+                $photo = $this->request->data['ServiceProvider']['photo'];
+                $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
+                $filename = uniqid('photo_') . '.' . $extension;
+                $uploadDir = WWW_ROOT . 'img' . DS . 'uploads' . DS;
+                
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+                
+                if (move_uploaded_file($photo['tmp_name'], $uploadDir . $filename)) {
+                    $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
+                } else {
+                    unset($this->request->data['ServiceProvider']['photo']); // Mantém a foto atual
+                }
+            } else {
+                unset($this->request->data['ServiceProvider']['photo']); // Mantém a foto atual
+            }
+
             if ($this->ServiceProvider->save($this->request->data)) {
                 $this->Flash->success('Prestador atualizado com sucesso!');
                 return $this->redirect(array('action' => 'index'));
@@ -100,8 +98,10 @@ class ServiceProvidersController extends AppController {
         } else {
             $this->request->data = $this->ServiceProvider->findById($id);
         }
-        $services = $this->ServiceProvider->Service->find('list');
-        $this->set(compact('services'));
+        
+        // Buscar sugestões de serviços
+        $serviceSuggestions = $this->Service->find('list', array('fields' => array('name', 'name')));
+        $this->set(compact('serviceSuggestions'));
     }
 
     public function delete($id = null) {
