@@ -246,8 +246,9 @@ tbody tr:last-child {
 
 .provider-actions {
     display: flex;
-    justify-content: space-around;
-    align-items: end;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
 }
 
 .pagination {

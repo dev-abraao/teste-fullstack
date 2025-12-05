@@ -71,10 +71,12 @@ echo $this->Html->css('index');
                             <td class="provider-phone"><?php echo h($provider['ServiceProvider']['phone']); ?></td>
                             <td class="provider-service"><?php echo h($provider['ServiceProvider']['service']); ?></td>
                             <td class="provider-price">R$ <?php echo number_format($provider['ServiceProvider']['price'], 2, ',', '.'); ?></td>
-                            <td class="provider-actions">
-                                <?php echo $this->Html->link('<i class="ph ph-eye"></i>', '#', array('class' => 'btn btn-info btn-view', 'data-id' => $provider['ServiceProvider']['id'], 'escape' => false)); ?>
-                                <?php echo $this->Html->link('<i class="ph ph-pencil-simple-line"></i>', array('action' => 'edit', $provider['ServiceProvider']['id']), array('class' => 'btn btn-warning', 'escape' => false)); ?>
-                                <?php echo $this->Form->postLink('<i class="ph ph-trash"></i>', array('action' => 'delete', $provider['ServiceProvider']['id']), array('class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'escape' => false)); ?>
+                            <td>
+                                <div class="provider-actions">
+                                    <?php echo $this->Html->link('<i class="ph ph-eye"></i>', '#', array('class' => 'btn btn-info btn-view', 'data-id' => $provider['ServiceProvider']['id'], 'escape' => false)); ?>
+                                    <?php echo $this->Html->link('<i class="ph ph-pencil-simple-line"></i>', array('action' => 'edit', $provider['ServiceProvider']['id']), array('class' => 'btn btn-warning', 'escape' => false)); ?>
+                                    <?php echo $this->Form->postLink('<i class="ph ph-trash"></i>', array('action' => 'delete', $provider['ServiceProvider']['id']), array('class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'escape' => false)); ?>
+                                </div>
                             </td>
                         </tr>
                         <?php endforeach; ?>
