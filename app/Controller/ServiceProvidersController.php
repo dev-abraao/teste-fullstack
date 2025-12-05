@@ -74,10 +74,19 @@ class ServiceProvidersController extends AppController {
 
     public function view($id = null) {
         $this->ServiceProvider->id = $id;
+        
         if (!$this->ServiceProvider->exists()) {
             throw new NotFoundException('Prestador não encontrado');
         }
+
         $serviceProvider = $this->ServiceProvider->findById($id);
+
+        if ($this->request->is('ajax')) {
+            $this->autoRender = false;
+            $this->response->type('application/json');
+            return json_encode($serviceProvider);
+        }
+
         $this->set('serviceProvider', $serviceProvider);
     }
 

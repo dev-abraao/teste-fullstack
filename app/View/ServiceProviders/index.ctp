@@ -12,7 +12,7 @@ echo $this->Html->css('index');
             </div>
             <nav>
                 <?php echo $this->Html->link('<i class="ph ph-upload-simple"></i> Importar', array('action' => 'import'), array('class' => 'nav-link btn-import', 'escape' => false)); ?>
-                <?php echo $this->Html->link('<i class="ph ph-plus"></i> Novo Prestador', array('action' => 'create'), array('class' => 'nav-link btn-primary', 'escape' => false)); ?>
+                <?php echo $this->Html->link('<i class="ph ph-plus"></i> Add Novo Prestador', array('action' => 'create'), array('class' => 'nav-link btn-primary', 'escape' => false)); ?>
             </nav>
         </header>
 
@@ -72,7 +72,7 @@ echo $this->Html->css('index');
                             <td class="provider-service"><?php echo h($provider['ServiceProvider']['service']); ?></td>
                             <td class="provider-price">R$ <?php echo number_format($provider['ServiceProvider']['price'], 2, ',', '.'); ?></td>
                             <td class="provider-actions">
-                                <?php echo $this->Html->link('<i class="ph ph-eye"></i>', array('action' => 'view', $provider['ServiceProvider']['id']), array('class' => 'btn btn-info', 'escape' => false)); ?>
+                                <?php echo $this->Html->link('<i class="ph ph-eye"></i>', '#', array('class' => 'btn btn-info btn-view', 'data-id' => $provider['ServiceProvider']['id'], 'escape' => false)); ?>
                                 <?php echo $this->Html->link('<i class="ph ph-pencil-simple-line"></i>', array('action' => 'edit', $provider['ServiceProvider']['id']), array('class' => 'btn btn-warning', 'escape' => false)); ?>
                                 <?php echo $this->Form->postLink('<i class="ph ph-trash"></i>', array('action' => 'delete', $provider['ServiceProvider']['id']), array('class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?', 'escape' => false)); ?>
                             </td>
@@ -96,4 +96,82 @@ echo $this->Html->css('index');
             <?php endif; ?>
         </main>
     </div>
+
+    <!-- Modal -->
+    <div id="viewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detalhes do Prestador</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="provider-photo-modal">
+                    <img id="modal-photo" src="" alt="Foto do prestador">
+                </div>
+                <div class="provider-info-modal">
+                    <p><strong>Nome:</strong> <span id="modal-name"></span></p>
+                    <p><strong>Email:</strong> <span id="modal-email"></span></p>
+                    <p><strong>Telefone:</strong> <span id="modal-phone"></span></p>
+                    <p><strong>Serviço:</strong> <span id="modal-service"></span></p>
+                    <p><strong>Descrição:</strong> <span id="modal-description"></span></p>
+                    <p><strong>Preço:</strong> R$ <span id="modal-price"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+</body>
+
+<script>
+$(document).ready(function() {
+    $('.btn-view').on('click', function() {
+        var id = $(this).data('id');
+        
+        $.ajax({
+            url: '<?php echo $this->Html->url(array("action" => "view")); ?>/' + id,
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function() {
+                $('#viewModal').addClass('loading');
+            },
+            success: function(data) {
+                var provider = data.ServiceProvider;
+                
+                $('#modal-name').text(provider.first_name + ' ' + provider.last_name);
+                $('#modal-email').text(provider.email);
+                $('#modal-phone').text(provider.phone);
+                $('#modal-service').text(provider.service);
+                $('#modal-description').text(provider.description || 'Sem descrição');
+                $('#modal-price').text(parseFloat(provider.price).toFixed(2).replace('.', ','));
+                
+                if (provider.photo) {
+                    $('#modal-photo').attr('src', '<?php echo $this->Html->url("/img/"); ?>' + provider.photo).show();
+                } else {
+                    $('#modal-photo').hide();
+                }
+                
+                $('#viewModal').addClass('show');
+            },
+            error: function() {
+                alert('Erro ao carregar dados do prestador.');
+            },
+            complete: function() {
+                $('#viewModal').removeClass('loading');
+            }
+        });
+    });
+
+    $('.modal-close, .modal').on('click', function(e) {
+        if (e.target === this) {
+            $('#viewModal').removeClass('show');
+        }
+    });
+
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape') {
+            $('#viewModal').removeClass('show');
+        }
+    });
+});
+</script>

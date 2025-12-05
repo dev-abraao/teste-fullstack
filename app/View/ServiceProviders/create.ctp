@@ -7,14 +7,10 @@ echo $this->Html->css('create');
     <div class="container">
         <header>
             <div>
-                <h1>Cadastro de Prestador de Serviço</h1>
-                <p>Informações Pessoais</p>
-                <p>Cadastre suas informações e adicione uma foto.</p>
+                <h1 class="title">Cadastro de Prestador de Serviço</h1>
+                <p class="subtitle">Informações Pessoais</p>
+                <p class="subtitle small">Cadastre suas informações e adicione uma foto.</p>
             </div>
-            <nav>
-                <?php echo $this->Html->link('Início', '/', array('class' => 'nav-link')); ?>
-                <?php echo $this->Html->link('Voltar', array('action' => 'index'), array('class' => 'nav-link')); ?>
-            </nav>
         </header>
 
         <main>
@@ -24,11 +20,16 @@ echo $this->Html->css('create');
                 <?php echo $this->Form->create('ServiceProvider', array('type' => 'file', 'class' => 'form')); ?>
 
                 <div class="form-row">
-                    <?php echo $this->Form->input('first_name', array('label' => 'Nome')); ?>
-                    <?php echo $this->Form->input('last_name', array('label' => 'Sobrenome')); ?>
+                    <label>Nome</label>
+                    <div class="inputs-group">
+                        <input type="text" name="data[ServiceProvider][first_name]" placeholder="Nome" id="ServiceProviderFirstName">
+                        <input type="text" name="data[ServiceProvider][last_name]" placeholder="Sobrenome" id="ServiceProviderLastName">
+                    </div>
                 </div>
 
-                <?php echo $this->Form->input('email', array('label' => 'E-mail')); ?>
+                <?php echo $this->Form->input('email', array('label' => 'E-mail', 'placeholder' => 'seuemail@exemplo.com')); ?>
+                
+                <?php echo $this->Form->input('photo', array('type' => 'file', 'label' => 'Sua foto')); ?>
                 
                 <?php echo $this->Form->input('phone', array(
                     'label' => 'Telefone',
@@ -37,33 +38,23 @@ echo $this->Html->css('create');
                     'maxlength' => 15
                 )); ?>
 
-                <?php echo $this->Form->input('photo', array('type' => 'file', 'label' => 'Foto')); ?>
-
                 <div class="input text">
-                    <label for="ServiceProviderService">Serviço</label>
+                    <label for="ServiceProviderService">Quais serviço você vai prestar?</label>
                     <div class="autocomplete-wrapper">
-                        <?php echo $this->Form->input('service', array(
-                            'label' => false,
-                            'id' => 'ServiceProviderService',
-                            'placeholder' => 'Digite ou selecione um serviço...',
-                            'autocomplete' => 'off'
-                        )); ?>
+                        <input type="text" name="data[ServiceProvider][service]" id="ServiceProviderService" placeholder="Digite ou selecione um serviço..." autocomplete="off">
                         <div id="ServiceDropdown" class="autocomplete-dropdown"></div>
                     </div>
                 </div>
 
-                <?php echo $this->Form->input('description', array('label' => 'Descrição', 'type' => 'textarea')); ?>
-                <?php echo $this->Form->input('price', array('label' => 'Preço')); ?>
+                <?php echo $this->Form->input('description', array('label' => 'Descrição', 'type' => 'textarea', 'placeholder' => 'Conte-nos mais sobre o serviço oferecido...')); ?>
+                <?php echo $this->Form->input('price', array('label' => 'Preço', 'placeholder' => 'R$ 200,00')); ?>
 
                 <div class="form-actions">
-                    <?php echo $this->Form->end('Cadastrar'); ?>
+                    <?php echo $this->Html->link('Cancelar', array('controller' => 'ServiceProviders', 'action' => 'index'), array('class' => 'btn-cancel')); ?>
+                    <?php echo $this->Form->end('Salvar'); ?>
                 </div>
             </div>
         </main>
-
-        <footer>
-            <p>&copy; <?php echo date('Y'); ?> - Sistema de Prestadores de Serviço</p>
-        </footer>
     </div>
 
     <script>
@@ -99,7 +90,6 @@ echo $this->Html->css('create');
         input.addEventListener('input', function() { renderDropdown(this.value); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.autocomplete-wrapper')) dropdown.classList.remove('show'); });
 
-        // Máscara de telefone
         document.getElementById('PhoneInput').addEventListener('input', function(e) {
             var value = e.target.value.replace(/\D/g, '');
             if (value.length > 11) value = value.substring(0, 11);

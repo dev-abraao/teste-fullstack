@@ -5,72 +5,94 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--gray-50);
+    color: var(--gray-900);
     line-height: 1.6;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #667eea;
+    align-items: flex-start;
+    margin-bottom: 40px;
 }
 
-header h1 {
-    color: #667eea;
-    font-size: 1.8rem;
+.title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--gray-900);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.subtitle.small {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    font-weight: 400;
+    margin-top: 4px;
 }
 
 nav {
     display: flex;
-    gap: 15px;
+    gap: 12px;
 }
 
 .nav-link {
     text-decoration: none;
-    color: #667eea;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
+    color: var(--gray-600);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid var(--gray-300);
 }
 
 .nav-link:hover {
-    background-color: #667eea;
-    color: white;
+    background-color: var(--gray-200);
+    color: var(--gray-900);
 }
 
+/* Formulário */
 .form-container {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
 
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+.form {
+    display: flex;
+    flex-direction: column;
 }
 
+/* Campo padrão: Label 30% | Input 60% | Espaço 10% */
 .input {
-    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.input:first-of-type {
+    border-top: 1px solid var(--gray-200);
 }
 
 .input label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #555;
+    flex: 0 0 30%;
+    font-weight: 500;
+    color: var(--gray-700);
+    font-size: 0.875rem;
+    padding-top: 10px;
 }
 
 .input input[type="text"],
@@ -79,44 +101,117 @@ nav {
 .input input[type="number"],
 .input textarea,
 .input select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    flex: 0 0 60%;
+    padding: 10px 14px;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: white;
+    color: var(--gray-900);
 }
 
 .input input:focus,
 .input textarea:focus,
 .input select:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(255, 43, 52, 0.1);
+}
+
+.input::placeholder {
+    color: var(--gray-400);
 }
 
 .input textarea {
     min-height: 100px;
-    resize: vertical;
+    resize: none;
 }
 
+/* Input de arquivo */
 .input input[type="file"] {
-    padding: 10px 0;
+    flex: 0 0 60%;
+    padding: 8px 0;
+    border: none;
+    font-size: 0.875rem;
 }
 
-.input.error input,
-.input.error textarea {
-    border-color: #dc3545;
+.input input[type="file"]::file-selector-button {
+    background-color: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: all 0.2s ease;
 }
 
-.error-message {
-    color: #dc3545;
-    font-size: 0.85rem;
-    margin-top: 5px;
+.input input[type="file"]::file-selector-button:hover {
+    background-color: var(--gray-200);
 }
 
+/* Linha com dois campos (Nome e Sobrenome) */
+.form-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-200);
+    border-top: 1px solid var(--gray-200);
+}
+
+.form-row > label {
+    flex: 0 0 30%;
+    font-weight: 500;
+    color: var(--gray-700);
+    font-size: 0.875rem;
+    padding-top: 10px;
+}
+
+.form-row .inputs-group {
+    flex: 0 0 60%;
+    display: flex;
+    gap: 16px;
+}
+
+.form-row .inputs-group input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: white;
+    color: var(--gray-900);
+}
+
+.form-row .inputs-group input:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(255, 43, 52, 0.1);
+}
+
+/* Autocomplete */
 .autocomplete-wrapper {
     position: relative;
+    flex: 0 0 60%;
+}
+
+.autocomplete-wrapper input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--gray-300);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: white;
+    color: var(--gray-900);
+}
+
+.autocomplete-wrapper input:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(255, 43, 52, 0.1);
 }
 
 .autocomplete-dropdown {
@@ -125,14 +220,14 @@ nav {
     left: 0;
     right: 0;
     background: white;
-    border: 1px solid #ddd;
+    border: 1px solid var(--gray-300);
     border-top: none;
     max-height: 200px;
     overflow-y: auto;
     display: none;
     z-index: 1000;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .autocomplete-dropdown.show {
@@ -140,54 +235,134 @@ nav {
 }
 
 .autocomplete-item {
-    padding: 12px 15px;
+    padding: 10px 14px;
     cursor: pointer;
+    font-size: 0.875rem;
     transition: background-color 0.2s ease;
 }
 
 .autocomplete-item:hover {
-    background: #f8f9ff;
-    color: #667eea;
+    background: var(--gray-50);
+    color: var(--primary-red);
 }
 
+/* Erros */
+.input.error input,
+.input.error textarea {
+    border-color: var(--primary-red);
+}
+
+.error-message {
+    color: var(--primary-red);
+    font-size: 0.75rem;
+    margin-top: 4px;
+    margin-left: 30%;
+}
+
+/* Ações do formulário */
 .form-actions {
-    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+    padding-top: 24px;
+    margin-top: 8px;
+}
+
+.btn-cancel,
+input[type="submit"] {
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.5;
+    min-width: 100px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.btn-cancel {
+    text-decoration: none;
+    display: inline-block;
+    background-color: transparent;
+    border: 2px solid var(--gray-300);
+    color: var(--gray-700);
+}
+
+.btn-cancel:hover {
+    background-color: var(--gray-200);
+    border-color: var(--gray-300);
 }
 
 input[type="submit"] {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-color: var(--primary-red);
     color: white;
-    border: none;
-    padding: 14px 35px;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    border: 2px solid var(--primary-red);
 }
 
 input[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    background-color: var(--primary-red-hover);
+    border-color: var(--primary-red-hover);
 }
 
-footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
-    text-align: center;
-    color: #777;
-}
-
+/* Responsividade para celulares e tablets */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        gap: 15px;
-        text-align: center;
+        gap: 20px;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .input {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .input label {
+        flex: none;
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .input input[type="text"],
+    .input input[type="email"],
+    .input input[type="tel"],
+    .input input[type="number"],
+    .input textarea,
+    .input select,
+    .input input[type="file"],
+    .autocomplete-wrapper {
+        flex: none;
+        width: 100%;
     }
 
     .form-row {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-row > label {
+        flex: none;
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .form-row .inputs-group {
+        flex: none;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .error-message {
+        margin-left: 0;
     }
 
     .form-container {
