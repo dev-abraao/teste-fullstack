@@ -29,4 +29,4 @@
     </tbody>
 </table>
 
-<?php echo $this->Html->link('Novo Prestador', array('action' => 'add')); ?>
+<?php echo $this->Html->link('Novo Prestador', array('action' => 'create')); ?>
