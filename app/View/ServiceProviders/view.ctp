@@ -22,7 +22,7 @@ echo $this->Html->css('view');
                         </div>
                     <?php else: ?>
                         <div class="photo photo-placeholder">
-                            <span>Sem foto</span>
+                            <span><?php echo strtoupper(substr($serviceProvider['ServiceProvider']['first_name'], 0, 1) . (substr($serviceProvider['ServiceProvider']['last_name'], 0, 1))); ?></span>
                         </div>
                     <?php endif; ?>
                     

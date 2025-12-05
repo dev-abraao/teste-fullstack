@@ -42,8 +42,7 @@ class ServiceProvidersController extends AppController {
             
             if (!empty($this->request->data['ServiceProvider']['photo']['name'])) {
                 $photo = $this->request->data['ServiceProvider']['photo'];
-                $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
-                $filename = uniqid('photo_') . '.' . $extension;
+                $filename = $this->request->data['ServiceProvider']['photo']['name'];
                 $uploadDir = WWW_ROOT . 'img' . DS . 'uploads' . DS;
                 
                 if (!is_dir($uploadDir)) {

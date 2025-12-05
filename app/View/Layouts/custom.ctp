@@ -4,7 +4,7 @@
 	<?php echo $this->Html->charset(); ?>
 	<title>
 		<?php echo $this->fetch('title'); ?>
-	</title>b
+	</title>
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->fetch('meta');

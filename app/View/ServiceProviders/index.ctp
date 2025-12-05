@@ -46,7 +46,7 @@ echo $this->Html->css('index');
                 <table>
                     <thead>
                         <tr>
-                            <th>Nome</th>
+                            <th>Prestador</th>
                             <th>Telefone</th>
                             <th>Serviço</th>
                             <th>Preço</th>
@@ -56,16 +56,17 @@ echo $this->Html->css('index');
                     <tbody>
                         <?php foreach ($serviceProviders as $provider): ?>
                         <tr>
-                            <td>                    <?php if (!empty($serviceProvider['ServiceProvider']['photo'])): ?>
-                        <div class="photo">
-                            <?php echo $this->Html->image($serviceProvider['ServiceProvider']['photo'], array('alt' => 'Foto do prestador')); ?>
-                        </div>
-                    <?php else: ?>
-                        <div class="photo photo-placeholder">
-                            <span>Sem foto</span>
-                        </div>
-                    <?php endif; ?>
-                                <?php echo h($provider['ServiceProvider']['first_name'] . ' ' . $provider['ServiceProvider']['last_name']); ?></td>
+                            <td class="provider-info">
+                                <?php if (!empty($provider['ServiceProvider']['photo'])): ?>
+                                    <?php echo $this->Html->image($provider['ServiceProvider']['photo'], array('alt' => 'xd', 'class' => 'table-photo')); ?>
+                                <?php else: ?>
+                                    <span><?php echo strtoupper(substr($provider['ServiceProvider']['first_name'], 0, 1) . (substr($provider['ServiceProvider']['last_name'], 0, 1))); ?></span>
+                                <?php endif; ?>
+                                <div class="provider-details">
+                                    <p><?php echo h($provider['ServiceProvider']['first_name'] . ' ' . $provider['ServiceProvider']['last_name']); ?></p>
+                                    <p><?php echo h($provider['ServiceProvider']['email']); ?></p>
+                                </div>
+                            </td>
                             <td><?php echo h($provider['ServiceProvider']['phone']); ?></td>
                             <td><?php echo h($provider['ServiceProvider']['service']); ?></td>
                             <td>R$ <?php echo number_format($provider['ServiceProvider']['price'], 2, ',', '.'); ?></td>
