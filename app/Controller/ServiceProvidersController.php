@@ -4,11 +4,22 @@ App::uses('AppController', 'Controller');
 
 class ServiceProvidersController extends AppController {
 
-    public $uses = array('ServiceProvider', 'Service');  // Adicionar Service
+    public $uses = array('ServiceProvider', 'Service');
+    public $components = array('Flash', 'Paginator');
+
+    public $paginate = array(
+        'limit' => 1,
+        'order' => array(
+            'ServiceProvider.first_name' => 'asc'
+        )
+    );
 
     public function index() {
         $this->layout = false;
-        $this->set('serviceProviders', $this->ServiceProvider->find('all'));
+
+        $this->Paginator->settings = $this->paginate;
+        $data = $this->Paginator->paginate('ServiceProvider');
+        $this->set('serviceProviders', $data);
     }
 
     public function create() {

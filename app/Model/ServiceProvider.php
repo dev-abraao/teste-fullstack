@@ -47,6 +47,10 @@ class ServiceProvider extends AppModel {
             'maxLength' => array(
                 'rule' => array('maxLength', 15),
                 'message' => 'Telefone deve ter no máximo 15 caracteres'
+            ),
+            'format' => array(
+                'rule' => array('custom', '/^\(\d{2}\) \d{5}-\d{4}$/'),
+                'message' => 'Telefone deve estar no formato (99) 99999-9999'
             )
         ),
         'service' => array(
