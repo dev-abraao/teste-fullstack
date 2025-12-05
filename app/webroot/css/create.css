@@ -65,7 +65,6 @@ nav {
     color: var(--gray-900);
 }
 
-/* Formulário */
 .form-container {
     border-radius: 12px;
 }
@@ -75,7 +74,6 @@ nav {
     flex-direction: column;
 }
 
-/* Campo padrão: Label 30% | Input 60% | Espaço 10% */
 .input {
     display: flex;
     align-items: flex-start;
@@ -128,7 +126,6 @@ nav {
     resize: none;
 }
 
-/* Input de arquivo */
 .input input[type="file"] {
     flex: 0 0 60%;
     padding: 8px 0;
@@ -151,7 +148,13 @@ nav {
     background-color: var(--gray-200);
 }
 
-/* Linha com dois campos (Nome e Sobrenome) */
+.photo-text {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+}
+
 .form-row {
     display: flex;
     align-items: flex-start;
@@ -191,7 +194,6 @@ nav {
     box-shadow: 0 0 0 3px rgba(255, 43, 52, 0.1);
 }
 
-/* Autocomplete */
 .autocomplete-wrapper {
     position: relative;
     flex: 0 0 60%;
@@ -246,7 +248,6 @@ nav {
     color: var(--primary-red);
 }
 
-/* Erros */
 .input.error input,
 .input.error textarea {
     border-color: var(--primary-red);
@@ -259,7 +260,6 @@ nav {
     margin-left: 30%;
 }
 
-/* Ações do formulário */
 .form-actions {
     display: flex;
     justify-content: flex-end;
@@ -308,7 +308,6 @@ input[type="submit"]:hover {
     border-color: var(--primary-red-hover);
 }
 
-/* Responsividade para celulares e tablets */
 @media (max-width: 768px) {
     header {
         flex-direction: column;

@@ -29,7 +29,7 @@ echo $this->Html->css('create');
 
                 <?php echo $this->Form->input('email', array('label' => 'E-mail', 'placeholder' => 'seuemail@exemplo.com')); ?>
                 
-                <?php echo $this->Form->input('photo', array('type' => 'file', 'label' => 'Sua foto')); ?>
+                <?php echo $this->Form->input('photo', array('type' => 'file', 'label' => 'Sua foto <br> <span class="photo-text">Ela aparecerá no seu perfil</span>')); ?>
                 
                 <?php echo $this->Form->input('phone', array(
                     'label' => 'Telefone',

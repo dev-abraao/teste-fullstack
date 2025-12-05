@@ -1,4 +1,5 @@
 <?php
+
 $this->assign('title', 'Editar Prestador de Serviço');
 echo $this->Html->css('edit');
 ?>
@@ -6,7 +7,11 @@ echo $this->Html->css('edit');
 <body>
     <div class="container">
         <header>
-            <h1>Editar Prestador de Serviço</h1>
+            <div>
+                <h1 class="title">Editar Prestador de Serviço</h1>
+                <p class="subtitle">Informações Pessoais</p>
+                <p class="subtitle small">Atualize suas informações e foto.</p>
+            </div>
             <nav>
                 <?php echo $this->Html->link('Início', '/', array('class' => 'nav-link')); ?>
                 <?php echo $this->Html->link('Voltar', array('action' => 'index'), array('class' => 'nav-link')); ?>
@@ -21,8 +26,11 @@ echo $this->Html->css('edit');
                 <?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 
                 <div class="form-row">
-                    <?php echo $this->Form->input('first_name', array('label' => 'Nome')); ?>
-                    <?php echo $this->Form->input('last_name', array('label' => 'Sobrenome')); ?>
+                    <label>Nome</label>
+                    <div class="inputs-group">
+                        <input type="text" name="data[ServiceProvider][first_name]" placeholder="Nome" id="ServiceProviderFirstName" value="<?php echo h($this->request->data['ServiceProvider']['first_name']); ?>">
+                        <input type="text" name="data[ServiceProvider][last_name]" placeholder="Sobrenome" id="ServiceProviderLastName" value="<?php echo h($this->request->data['ServiceProvider']['last_name']); ?>">
+                    </div>
                 </div>
 
                 <?php echo $this->Form->input('email', array('label' => 'E-mail')); ?>
@@ -34,17 +42,12 @@ echo $this->Html->css('edit');
                     'maxlength' => 15
                 )); ?>
 
-                <?php echo $this->Form->input('photo', array('type' => 'file', 'label' => 'Foto (deixe vazio para manter)')); ?>
+                <?php echo $this->Form->input('photo', array('type' => 'file', 'label' => 'Sua foto (deixe vazio para manter)')); ?>
 
                 <div class="input text">
-                    <label for="ServiceProviderService">Serviço</label>
+                    <label for="ServiceProviderService">Quais serviço você vai prestar?</label>
                     <div class="autocomplete-wrapper">
-                        <?php echo $this->Form->input('service', array(
-                            'label' => false,
-                            'id' => 'ServiceProviderService',
-                            'placeholder' => 'Digite ou selecione um serviço...',
-                            'autocomplete' => 'off'
-                        )); ?>
+                        <input type="text" name="data[ServiceProvider][service]" id="ServiceProviderService" placeholder="Digite ou selecione um serviço..." autocomplete="off" value="<?php echo h($this->request->data['ServiceProvider']['service']); ?>">
                         <div id="ServiceDropdown" class="autocomplete-dropdown"></div>
                     </div>
                 </div>
@@ -53,14 +56,11 @@ echo $this->Html->css('edit');
                 <?php echo $this->Form->input('price', array('label' => 'Preço')); ?>
 
                 <div class="form-actions">
+                    <?php echo $this->Html->link('Cancelar', array('action' => 'index'), array('class' => 'btn-cancel')); ?>
                     <?php echo $this->Form->end('Salvar'); ?>
                 </div>
             </div>
         </main>
-
-        <footer>
-            <p>&copy; <?php echo date('Y'); ?> - Sistema de Prestadores de Serviço</p>
-        </footer>
     </div>
 
     <script>
@@ -96,7 +96,6 @@ echo $this->Html->css('edit');
         input.addEventListener('input', function() { renderDropdown(this.value); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.autocomplete-wrapper')) dropdown.classList.remove('show'); });
 
-        // Máscara de telefone
         document.getElementById('PhoneInput').addEventListener('input', function(e) {
             var value = e.target.value.replace(/\D/g, '');
             if (value.length > 11) value = value.substring(0, 11);
