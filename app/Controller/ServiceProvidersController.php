@@ -16,8 +16,6 @@ class ServiceProvidersController extends AppController {
     );
 
     public function index() {
-        $this->layout = false;
-
         $conditions = array();
 
         if (!empty($this->request->query['search'])) {
@@ -39,8 +37,6 @@ class ServiceProvidersController extends AppController {
     }
 
     public function create() {
-        $this->layout = false;
-        
         if ($this->request->is('post')) {
             $this->ServiceProvider->create();
             
@@ -78,8 +74,6 @@ class ServiceProvidersController extends AppController {
     }
 
     public function view($id = null) {
-        $this->layout = false;
-
         $this->ServiceProvider->id = $id;
         if (!$this->ServiceProvider->exists()) {
             throw new NotFoundException('Prestador não encontrado');
@@ -89,8 +83,6 @@ class ServiceProvidersController extends AppController {
     }
 
     public function edit($id = null) {
-        $this->layout = false;
-
         $this->ServiceProvider->id = $id;
         if (!$this->ServiceProvider->exists()) {
             throw new NotFoundException('Prestador não encontrado');

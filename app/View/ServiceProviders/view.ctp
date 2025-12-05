@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Prestador</title>
-    <?php echo $this->Html->css('view'); ?>
-</head>
+<?php
+$this->assign('title', 'Detalhes do Prestador');
+echo $this->Html->css('view');
+?>
+
 <body>
     <div class="container">
         <header>
@@ -21,11 +18,11 @@
                 <div class="card-header">
                     <?php if (!empty($serviceProvider['ServiceProvider']['photo'])): ?>
                         <div class="photo">
-                            <?php echo $this->Html->image($serviceProvider['ServiceProvider']['photo'], array('alt' => 'Foto não encontrada')); ?>
+                            <?php echo $this->Html->image($serviceProvider['ServiceProvider']['photo'], array('alt' => 'Foto do prestador')); ?>
                         </div>
                     <?php else: ?>
                         <div class="photo photo-placeholder">
-                            <span><?php echo h(strtoupper($serviceProvider['ServiceProvider']['first_name'][0]) . strtoupper($serviceProvider['ServiceProvider']['last_name'][0])); ?></span>
+                            <span>Sem foto</span>
                         </div>
                     <?php endif; ?>
                     
@@ -41,17 +38,14 @@
                             <span class="info-label">E-mail</span>
                             <span class="info-value"><?php echo h($serviceProvider['ServiceProvider']['email']); ?></span>
                         </div>
-
                         <div class="info-item">
                             <span class="info-label">Telefone</span>
                             <span class="info-value"><?php echo h($serviceProvider['ServiceProvider']['phone']); ?></span>
                         </div>
-
                         <div class="info-item">
                             <span class="info-label">Serviço</span>
                             <span class="info-value"><?php echo h($serviceProvider['ServiceProvider']['service']); ?></span>
                         </div>
-
                         <div class="info-item">
                             <span class="info-label">Preço</span>
                             <span class="info-value price">R$ <?php echo number_format($serviceProvider['ServiceProvider']['price'], 2, ',', '.'); ?></span>
@@ -68,7 +62,7 @@
 
                 <div class="card-footer">
                     <?php echo $this->Html->link('Editar', array('action' => 'edit', $serviceProvider['ServiceProvider']['id']), array('class' => 'btn btn-warning')); ?>
-                    <?php echo $this->Form->postLink('Excluir', array('action' => 'delete', $serviceProvider['ServiceProvider']['id']), array('class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir este prestador?')); ?>
+                    <?php echo $this->Form->postLink('Excluir', array('action' => 'delete', $serviceProvider['ServiceProvider']['id']), array('class' => 'btn btn-danger', 'confirm' => 'Tem certeza que deseja excluir?')); ?>
                 </div>
             </div>
         </main>
@@ -78,4 +72,3 @@
         </footer>
     </div>
 </body>
-</html>

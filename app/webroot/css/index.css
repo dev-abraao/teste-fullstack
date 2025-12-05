@@ -262,11 +262,24 @@ footer {
     gap: 10px;
     width: 100%;
     max-width: 500px;
+    position: relative;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #000000;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .search-input {
     flex: 1;
-    padding: 12px 15px;
+    padding: 12px 15px 12px 45px;
     border: 2px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
