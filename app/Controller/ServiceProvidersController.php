@@ -9,7 +9,7 @@ class ServiceProvidersController extends AppController {
         $this->set('serviceProviders', $this->ServiceProvider->find('all'));
     }
 
-public function create() {
+    public function create() {
         $this->layout = false;
         
         if ($this->request->is('post')) {
@@ -36,11 +36,15 @@ public function create() {
                 $this->request->data['ServiceProvider']['photo'] = null;
             }
             
-            if ($this->ServiceProvider->save($this->request->data)) {
-                $this->Flash->success('Prestador cadastrado com sucesso!');
-                return $this->redirect(array('action' => 'index'));
+            $this->ServiceProvider->set($this->request->data);
+            
+            if ($this->ServiceProvider->validates()) {
+                if ($this->ServiceProvider->save($this->request->data)) {
+                    $this->Flash->success('Prestador cadastrado com sucesso!');
+                    return $this->redirect(array('action' => 'index'));
+                }
             }
-            $this->Flash->error('Erro ao cadastrar. Verifique os dados.');
+            
         }
 
         $services = $this->ServiceProvider->Service->find('list');
