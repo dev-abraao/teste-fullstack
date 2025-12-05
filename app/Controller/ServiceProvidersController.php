@@ -4,11 +4,12 @@ App::uses('AppController', 'Controller');
 
 class ServiceProvidersController extends AppController {
 
+    public $layout = 'custom';
     public $uses = array('ServiceProvider', 'Service');
     public $components = array('Flash', 'Paginator');
 
     public $paginate = array(
-        'limit' => 1,
+        'limit' => 10,
         'order' => array(
             'ServiceProvider.first_name' => 'asc'
         )
@@ -17,9 +18,24 @@ class ServiceProvidersController extends AppController {
     public function index() {
         $this->layout = false;
 
-        $this->Paginator->settings = $this->paginate;
+        $conditions = array();
+
+        if (!empty($this->request->query['search'])) {
+            $search = $this->request->query['search'];
+            $conditions['OR'] = array(
+                'ServiceProvider.first_name LIKE' => '%' . $search . '%',
+                'ServiceProvider.last_name LIKE' => '%' . $search . '%',
+                'CONCAT(ServiceProvider.first_name, " ", ServiceProvider.last_name) LIKE' => '%' . $search . '%'
+            );
+        }
+
+        $this->Paginator->settings = array_merge($this->paginate, array(
+            'conditions' => $conditions
+        ));
+        
         $data = $this->Paginator->paginate('ServiceProvider');
         $this->set('serviceProviders', $data);
+        $this->set('search', isset($this->request->query['search']) ? $this->request->query['search'] : '');
     }
 
     public function create() {
@@ -57,7 +73,6 @@ class ServiceProvidersController extends AppController {
             }
         }
 
-        // Buscar sugestões de serviços
         $serviceSuggestions = $this->Service->find('list', array('fields' => array('name', 'name')));
         $this->set(compact('serviceSuggestions'));
     }
@@ -95,10 +110,10 @@ class ServiceProvidersController extends AppController {
                 if (move_uploaded_file($photo['tmp_name'], $uploadDir . $filename)) {
                     $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
                 } else {
-                    unset($this->request->data['ServiceProvider']['photo']); // Mantém a foto atual
+                    unset($this->request->data['ServiceProvider']['photo']); 
                 }
             } else {
-                unset($this->request->data['ServiceProvider']['photo']); // Mantém a foto atual
+                unset($this->request->data['ServiceProvider']['photo']); 
             }
 
             if ($this->ServiceProvider->save($this->request->data)) {
@@ -110,7 +125,6 @@ class ServiceProvidersController extends AppController {
             $this->request->data = $this->ServiceProvider->findById($id);
         }
         
-        // Buscar sugestões de serviços
         $serviceSuggestions = $this->Service->find('list', array('fields' => array('name', 'name')));
         $this->set(compact('serviceSuggestions'));
     }

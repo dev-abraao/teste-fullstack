@@ -21,11 +21,11 @@
                 <div class="card-header">
                     <?php if (!empty($serviceProvider['ServiceProvider']['photo'])): ?>
                         <div class="photo">
-                            <?php echo $this->Html->image($serviceProvider['ServiceProvider']['photo'], array('alt' => 'Foto do prestador')); ?>
+                            <?php echo $this->Html->image($serviceProvider['ServiceProvider']['photo'], array('alt' => 'Foto não encontrada')); ?>
                         </div>
                     <?php else: ?>
                         <div class="photo photo-placeholder">
-                            <span>Sem foto</span>
+                            <span><?php echo h(strtoupper($serviceProvider['ServiceProvider']['first_name'][0]) . strtoupper($serviceProvider['ServiceProvider']['last_name'][0])); ?></span>
                         </div>
                     <?php endif; ?>
                     

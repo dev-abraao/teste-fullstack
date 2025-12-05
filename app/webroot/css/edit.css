@@ -17,7 +17,6 @@ body {
     padding: 20px;
 }
 
-/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -50,7 +49,6 @@ nav {
     color: #333;
 }
 
-/* Form Container */
 .form-container {
     background: white;
     padding: 30px;
@@ -65,7 +63,6 @@ nav {
     gap: 20px;
 }
 
-/* Inputs */
 .input {
     margin-bottom: 20px;
 }
@@ -108,7 +105,6 @@ nav {
     padding: 10px 0;
 }
 
-/* Error States */
 .input.error input,
 .input.error textarea {
     border-color: #dc3545;
@@ -120,7 +116,6 @@ nav {
     margin-top: 5px;
 }
 
-/* Autocomplete */
 .autocomplete-wrapper {
     position: relative;
 }
@@ -156,7 +151,6 @@ nav {
     color: #e0a800;
 }
 
-/* Submit Button */
 .form-actions {
     margin-top: 25px;
 }
@@ -178,7 +172,6 @@ input[type="submit"]:hover {
     box-shadow: 0 5px 20px rgba(255, 193, 7, 0.4);
 }
 
-/* Footer */
 footer {
     margin-top: 40px;
     padding-top: 20px;
@@ -187,7 +180,6 @@ footer {
     color: #777;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     header {
         flex-direction: column;

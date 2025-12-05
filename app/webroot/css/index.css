@@ -17,7 +17,6 @@ body {
     padding: 20px;
 }
 
-/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -58,7 +57,6 @@ nav {
     background-color: #5a6fd6;
 }
 
-/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -98,7 +96,6 @@ tbody tr:last-child {
     border-bottom: none;
 }
 
-/* Buttons */
 .btn {
     display: inline-block;
     padding: 6px 12px;
@@ -142,7 +139,6 @@ tbody tr:last-child {
     gap: 5px;
 }
 
-/* Pagination */
 .pagination {
     margin-top: 30px;
     text-align: center;
@@ -182,7 +178,6 @@ tbody tr:last-child {
     pointer-events: none;
 }
 
-/* Footer */
 footer {
     margin-top: 40px;
     padding-top: 20px;
@@ -191,7 +186,6 @@ footer {
     color: #777;
 }
 
-/* Forms */
 .input {
     margin-bottom: 20px;
 }
@@ -236,7 +230,6 @@ footer {
     margin-top: 5px;
 }
 
-/* Flash Messages */
 .flash-success {
     background-color: #d4edda;
     color: #155724;
@@ -255,7 +248,90 @@ footer {
     border: 1px solid #f5c6cb;
 }
 
-/* Responsive */
+.search-box {
+    margin-bottom: 25px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.search-input-wrapper {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-btn {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.clear-btn {
+    padding: 12px 20px;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background: #5a6268;
+}
+
+.search-result {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.no-results {
+    text-align: center;
+    padding: 50px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.no-results p {
+    color: #777;
+    font-size: 1.1rem;
+}
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
