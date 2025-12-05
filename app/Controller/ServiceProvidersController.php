@@ -9,7 +9,7 @@ class ServiceProvidersController extends AppController {
     public $components = array('Flash', 'Paginator');
 
     public $paginate = array(
-        'limit' => 10,
+        'limit' => 7,
         'order' => array(
             'ServiceProvider.first_name' => 'asc'
         )

@@ -7,7 +7,6 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #FAFAFA;
-    color: #333;
     line-height: 1.6;
 }
 
@@ -27,13 +26,18 @@ body {
 .provider-photo {
     width: 35px;
     height: 35px;
+    min-width: 35px;
+    min-height: 35px;
     object-fit: cover;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .provider-avatar {
     width: 35px;
     height: 35px;
+    min-width: 35px;
+    min-height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,6 +46,7 @@ body {
     border-radius: 50%;
     font-weight: 600;
     font-size: 0.9rem;
+    flex-shrink: 0;
 }
 
 .provider-details {
@@ -52,13 +57,25 @@ body {
 
 .provider-name {
     color: var(--gray-900);
-    font-weight: 600;
+    font-weight: 400;
     font-size: 0.95rem;
 }
 
 .provider-email {
     color: var(--gray-600);
     font-size: 0.85rem;
+}
+
+.provider-phone {
+    color: var(--gray-600);
+}
+
+.provider-service {
+    color: var(--gray-600);
+}
+
+.provider-price {
+    color: var(--gray-600);
 }
 
 header {
@@ -71,6 +88,7 @@ header {
 
 .title {
     font-size: 2rem;
+    font-weight: 700;
     color: var(--gray-900);
 }
 
@@ -100,6 +118,8 @@ nav {
 .nav-link.btn-primary {
     background-color: var(--primary-red);
     color: white;
+    font-weight: 600;
+    border-radius: 12px;
 }
 
 .nav-link.btn-primary:hover {
@@ -111,16 +131,25 @@ nav {
     border: 2px solid var(--gray-300);
     border-radius: 8px;
     color: var(--gray-700);
+    font-weight: 600;
+}
+
+.nav-link.btn-import:hover {
+    background-color: var(--gray-200);
+    border-color: var(--gray-300);
 }
 
 
 table {
+    margin-top: 25px;
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     background: white;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--gray-200);
 }
 
 .table-photo {
@@ -137,6 +166,7 @@ thead {
 
 th, td {
     padding: 15px;
+    padding-left: 20px;
     text-align: left;
 }
 
@@ -146,9 +176,22 @@ th {
     letter-spacing: 0.5px;
 }
 
+th:nth-child(4),
+td:nth-child(4) {
+    text-align: right;
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+    text-align: right;
+}
+
 tbody tr {
-    border-bottom: 1px solid #eee;
     transition: background-color 0.3s ease;
+}
+
+tbody tr td {
+    border-top: 1px solid #eee;
 }
 
 tbody tr:hover {
@@ -171,7 +214,7 @@ tbody tr:last-child {
 }
 
 .btn-info {
-    color: black;
+    color: var(--gray-600);
     font-size: 20px;
 }
 
@@ -181,7 +224,7 @@ tbody tr:last-child {
 }
 
 .btn-warning {
-    color: black;
+    color: var(--gray-600);
     font-size: 20px;
 }
 
@@ -191,7 +234,7 @@ tbody tr:last-child {
 }
 
 .btn-danger {
-    color:black;
+    color: var(--gray-600);
     font-size: 20px;
 }
 
@@ -200,16 +243,16 @@ tbody tr:last-child {
     scale: 130%;
 }
 
-.actions {
+.provider-actions {
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    gap: 5px;
+    align-items: end;
 }
 
 .pagination {
     display: flex;
     justify-content: space-between;
+    color: var(--gray-700);
     align-items: center;
     text-align: center;
 }
@@ -219,29 +262,34 @@ tbody tr:last-child {
     font-weight: bold;
     justify-content: center;
     margin-right: 10px;
-    gap: 5px;
+    gap: 10px;
 }
 
-.pagination-links a,
-.pagination-links span {
+.pagination-links a {
     padding: 8px 14px;
     text-decoration: none;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    color: #667eea;
+    border-radius: 12px;
+    color: var(--gray-700);
+    transition: all 0.3s ease;
+}
+
+.pagination-links span {
+    text-decoration: none;
+    color: var(--gray-700);
     transition: all 0.3s ease;
 }
 
 .pagination-links a:hover {
-    background-color: #667eea;
-    color: white;
-    border-color: #667eea;
+    background-color: var(--gray-100);
+    color: var(--gray-900);
+    border-color: var(--gray-400);
 }
 
 .pagination-links .current {
-    background-color: #667eea;
-    color: white;
-    border-color: #667eea;
+    background-color: var(--gray-200);
+    color: var(--gray-900);
+    border-color: var(--gray-400);
 }
 
 .pagination-links .disabled {
@@ -319,9 +367,6 @@ footer {
     border: 1px solid #f5c6cb;
 }
 
-.search-box {
-    margin-bottom: 25px;
-}
 
 .search-form {
     display: flex;
@@ -332,7 +377,7 @@ footer {
     display: flex;
     gap: 10px;
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     position: relative;
     align-items: center;
 }
@@ -350,6 +395,7 @@ footer {
 
 .search-input {
     flex: 1;
+    color: var(--gray-600);
     padding: 12px 15px 12px 45px;
     border: 2px solid #ddd;
     border-radius: 8px;
@@ -398,7 +444,7 @@ footer {
 }
 
 .search-result {
-    text-align: center;
+    text-align: start;
     margin-bottom: 20px;
     color: #666;
 }
@@ -426,6 +472,7 @@ footer {
     table {
         display: block;
         overflow-x: auto;
+        margin-top: 25px;
     }
 
     .table-photo {

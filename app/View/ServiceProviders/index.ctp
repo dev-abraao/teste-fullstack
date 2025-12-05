@@ -11,7 +11,7 @@ echo $this->Html->css('index');
             <p class="subtitle">Veja sua lista de prestadores de serviço</p>
             </div>
             <nav>
-                <?php echo $this->Html->link('<i class="ph ph-download-simple"></i> Importar', array('action' => 'import'), array('class' => 'nav-link btn-import', 'escape' => false)); ?>
+                <?php echo $this->Html->link('<i class="ph ph-upload-simple"></i> Importar', array('action' => 'import'), array('class' => 'nav-link btn-import', 'escape' => false)); ?>
                 <?php echo $this->Html->link('<i class="ph ph-plus"></i> Novo Prestador', array('action' => 'create'), array('class' => 'nav-link btn-primary', 'escape' => false)); ?>
             </nav>
         </header>
@@ -84,11 +84,8 @@ echo $this->Html->css('index');
                                     <?php echo $this->Paginator->counter(array('format' => 'Página {:page} de {:pages}')); ?>
                                     <div class="pagination-links">
                                         <?php
-                                        echo $this->Paginator->first('<<', array('escape' => false));
                                         echo $this->Paginator->prev('Anterior', array('escape' => false), null, array('class' => 'disabled'));
-                                        echo $this->Paginator->numbers(array('separator' => ''));
                                         echo $this->Paginator->next('Próximo', array('escape' => false), null, array('class' => 'disabled'));
-                                        echo $this->Paginator->last('>>', array('escape' => false));
                                         ?>
                                     </div>
                                 </div>
