@@ -4,6 +4,7 @@ App::uses('AppModel', 'Model');
 
 class ServiceProvider extends AppModel {
     
+    // Validações dos campos para criação/edição de prestadores de serviço
     public $validate = array(
         'first_name' => array(
             'notBlank' => array(

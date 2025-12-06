@@ -3,11 +3,10 @@
 App::uses('AppController', 'Controller');
 
 class ServiceProvidersController extends AppController {
-
+    // Aqui ficam as configurações do controller :)
     public $layout = 'custom';
     public $uses = array('ServiceProvider', 'Service');
     public $components = array('Flash', 'Paginator');
-
     public $paginate = array(
         'limit' => 7,
         'order' => array(
@@ -16,11 +15,13 @@ class ServiceProvidersController extends AppController {
     );
 
     public function index() {
+        // Condições para busca
         $conditions = array();
 
         if (!empty($this->request->query['search'])) {
             $search = $this->request->query['search'];
             $conditions['OR'] = array(
+                // Aqui poderiamos adicionar filtros adicionais, por exemplo, por serviço oferecido ou email
                 'ServiceProvider.first_name LIKE' => '%' . $search . '%',
                 'ServiceProvider.last_name LIKE' => '%' . $search . '%',
                 'CONCAT(ServiceProvider.first_name, " ", ServiceProvider.last_name) LIKE' => '%' . $search . '%'
@@ -37,9 +38,11 @@ class ServiceProvidersController extends AppController {
     }
 
     public function create() {
+        // o If aqui está servindo para não processar o form quando a request é um GET (Rota do formulário)
         if ($this->request->is('post')) {
             $this->ServiceProvider->create();
             
+            // Upload de Foto
             if (!empty($this->request->data['ServiceProvider']['photo']['name'])) {
                 $photo = $this->request->data['ServiceProvider']['photo'];
                 $filename = $this->request->data['ServiceProvider']['photo']['name'];
@@ -51,13 +54,15 @@ class ServiceProvidersController extends AppController {
                 
                 if (move_uploaded_file($photo['tmp_name'], $uploadDir . $filename)) {
                     $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
+                // Esse if é para caso o upload falhe, a foto também ficará como null, mas o usuário poderá editar depois
                 } else {
                     $this->request->data['ServiceProvider']['photo'] = null;
                 }
+            // Se nenhum arquivo foi enviado a foto fica como null (Avatarzinho bonitinho com as letras iniciais do nome/sobrenome)
             } else {
                 $this->request->data['ServiceProvider']['photo'] = null;
             }
-            
+            // Aqui é para preparação dos dados para validação
             $this->ServiceProvider->set($this->request->data);
             
             if ($this->ServiceProvider->validates()) {
@@ -68,35 +73,34 @@ class ServiceProvidersController extends AppController {
             }
         }
 
+        // Popular as options do dropdown de serviços 
         $serviceSuggestions = $this->Service->find('list', array('fields' => array('name', 'name')));
         $this->set(compact('serviceSuggestions'));
     }
 
+    // A lógica aqui é diferente pois alterei o view para um AJAX via jquery, então essa função só retorna o JSON para popular o modal!
     public function view($id = null) {
-        $this->ServiceProvider->id = $id;
-        
-        if (!$this->ServiceProvider->exists()) {
-            throw new NotFoundException('Prestador não encontrado');
-        }
-
+        // Acha o prestador pelo ID
         $serviceProvider = $this->ServiceProvider->findById($id);
 
+        // Não precisamos de casos de erro por id inválido, pois o botão de ver detalhes só aparece se o prestador existir, então abaixo está a lógica para retornar o JSON via AJAX
         if ($this->request->is('ajax')) {
             $this->autoRender = false;
             $this->response->type('application/json');
             return json_encode($serviceProvider);
         }
-
-        $this->set('serviceProvider', $serviceProvider);
     }
 
     public function edit($id = null) {
         $this->ServiceProvider->id = $id;
+        // Verifica se o prestador existe, se não, redireciona para a index(lista de prestadores) com notificação de erro 
         if (!$this->ServiceProvider->exists()) {
-            throw new NotFoundException('Prestador não encontrado');
+            $this->Flash->notification('Prestador não encontrado!', array('params' => array('class' => 'error')));
+            return $this->redirect(array('action' => 'index'));
         }
-
+        // o If aqui está servindo para não processar o form quando a request é um GET (Rota do formulário) ;^)
         if ($this->request->is(array('post', 'put'))) {
+            // Upload de Foto
             if (!empty($this->request->data['ServiceProvider']['photo']['name'])) {
                 $photo = $this->request->data['ServiceProvider']['photo'];
                 $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
@@ -109,9 +113,11 @@ class ServiceProvidersController extends AppController {
                 
                 if (move_uploaded_file($photo['tmp_name'], $uploadDir . $filename)) {
                     $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
+                // Se o upload falhar, removemos a chave 'photo' para manter a foto atual
                 } else {
                     unset($this->request->data['ServiceProvider']['photo']); 
                 }
+            // Se nenhum arquivo foi enviado, removemos a chave 'photo' para manter a foto atual
             } else {
                 unset($this->request->data['ServiceProvider']['photo']); 
             }
@@ -121,10 +127,12 @@ class ServiceProvidersController extends AppController {
                 return $this->redirect(array('action' => 'index'));
             }
             $this->Flash->notification('Erro ao atualizar. Verifique os dados.', array('params' => array('class' => 'error')));
+        // Se não for post ou put, preenche os inputs com os dados atuais do prestador
         } else {
             $this->request->data = $this->ServiceProvider->findById($id);
         }
         
+        // Popular as options do dropdown de serviços 
         $serviceSuggestions = $this->Service->find('list', array('fields' => array('name', 'name')));
         $this->set(compact('serviceSuggestions'));
     }
