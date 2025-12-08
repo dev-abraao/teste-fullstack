@@ -48,7 +48,12 @@ COPY . /var/www/html
 RUN composer install --no-interaction --no-dev --optimize-autoloader
 
 # ajustar permissoes
-RUN chown -R www-data:www-data /var/www/html/app/tmp \
+RUN mkdir -p /var/www/html/app/tmp/cache/models \
+    && mkdir -p /var/www/html/app/tmp/cache/persistent \
+    && mkdir -p /var/www/html/app/tmp/logs \
+    && mkdir -p /var/www/html/app/tmp/sessions \
+    && mkdir -p /var/www/html/app/tmp/tests \
+    && chown -R www-data:www-data /var/www/html/app/tmp \
     && chmod -R 777 /var/www/html/app/tmp \
     && chown -R www-data:www-data /var/www/html/app/webroot \
     && chmod -R 777 /var/www/html/app/webroot
