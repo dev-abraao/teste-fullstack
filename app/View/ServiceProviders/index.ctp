@@ -5,6 +5,7 @@ echo $this->Html->css('index');
 
 <body>
     <div class="container">
+        <!-- cabecalho da pag (titulo e botoes de import e add) -->
         <header>
             <div>
             <h1 class="title">Prestadores de Serviço</h1>
@@ -29,6 +30,7 @@ echo $this->Html->css('index');
 
         <main>
             <div class="search-box">
+                <!-- caixa de busca -->
                 <?php 
                 echo $this->Form->create(null, array(
                     'type' => 'get',
@@ -40,6 +42,7 @@ echo $this->Html->css('index');
                     <svg class="mag" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#717680" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+                    <!-- input de busca -->
                     <input type="text" name="search" placeholder="Buscar" value="<?php echo h($search); ?>" class="search-input">
                     <?php if (!empty($search)): ?>
                         <?php echo $this->Html->link('<i class="ph ph-x"></i>', array('action' => 'index'), array('class' => 'clear-btn', 'escape' => false)); ?>
@@ -47,18 +50,20 @@ echo $this->Html->css('index');
                 </div>
                 <?php echo $this->Form->end(); ?>
             </div>
-
+            <!-- resultados da busca -->
             <?php if (!empty($search)): ?>
                 <p class="search-result">Resultados para: <strong>"<?php echo h($search); ?>"</strong></p>
             <?php endif; ?>
-
+            <!-- se nao houver prestadores -->
             <?php if (empty($serviceProviders)): ?>
                 <div class="no-results">
                     <p>Nenhum prestador encontrado.</p>
                 </div>
             <?php else: ?>
+                <!-- tabela principal -->
                 <table>
                     <thead>
+                        <!-- headers da tabela -->
                         <tr>
                             <th>Prestador</th>
                             <th>Telefone</th>
@@ -68,6 +73,7 @@ echo $this->Html->css('index');
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- foreach para popular a tabela em si (linhas da tabela) -->
                         <?php foreach ($serviceProviders as $provider): ?>
                         <tr>
                             <td class="provider-info">
@@ -86,6 +92,7 @@ echo $this->Html->css('index');
                             <td class="provider-price">R$ <?php echo number_format($provider['ServiceProvider']['price'], 2, ',', '.'); ?></td>
                             <td>
                                 <div class="provider-actions">
+                                    <!-- botao view de cada prestador -->
                                     <?php echo $this->Html->link(
                                         '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                             <path d="M0.833328 10C0.833328 10 4.16666 3.33334 10 3.33334C15.8333 3.33334 19.1667 10 19.1667 10C19.1667 10 15.8333 16.6667 10 16.6667C4.16666 16.6667 0.833328 10 0.833328 10Z" stroke="#535862" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
@@ -94,6 +101,7 @@ echo $this->Html->css('index');
                                         '#', 
                                         array('class' => 'btn btn-info btn-view', 'data-id' => $provider['ServiceProvider']['id'], 'escape' => false)
                                     ); ?>
+                                    <!-- botao editar de cada prestador -->
                                     <?php echo $this->Html->link(
                                         '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                             <path d="M10 16.6667H17.5M13.75 2.91669C14.0815 2.58517 14.5312 2.39893 15 2.39893C15.2321 2.39893 15.462 2.44465 15.6765 2.53349C15.891 2.62233 16.0858 2.75254 16.25 2.91669C16.4142 3.08084 16.5444 3.27572 16.6332 3.4902C16.722 3.70467 16.7678 3.93455 16.7678 4.16669C16.7678 4.39884 16.722 4.62871 16.6332 4.84319C16.5444 5.05766 16.4142 5.25254 16.25 5.41669L5.83333 15.8334L2.5 16.6667L3.33333 13.3334L13.75 2.91669Z" stroke="#535862" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
@@ -101,6 +109,7 @@ echo $this->Html->css('index');
                                         array('action' => 'edit', $provider['ServiceProvider']['id']), 
                                         array('class' => 'btn btn-warning', 'escape' => false)
                                     ); ?>
+                                    <!-- botao deletar de cada prestador -->
                                     <?php echo $this->Form->postLink(
                                         '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                             <path d="M2.5 4.99996H4.16667M4.16667 4.99996H17.5M4.16667 4.99996V16.6666C4.16667 17.1087 4.34226 17.5326 4.65482 17.8451C4.96738 18.1577 5.39131 18.3333 5.83333 18.3333H14.1667C14.6087 18.3333 15.0326 18.1577 15.3452 17.8451C15.6577 17.5326 15.8333 17.1087 15.8333 16.6666V4.99996H4.16667ZM6.66667 4.99996V3.33329C6.66667 2.89127 6.84226 2.46734 7.15482 2.15478C7.46738 1.84222 7.89131 1.66663 8.33333 1.66663H11.6667C12.1087 1.66663 12.5326 1.84222 12.8452 2.15478C13.1577 2.46734 13.3333 2.89127 13.3333 3.33329V4.99996" stroke="#535862" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
@@ -115,6 +124,7 @@ echo $this->Html->css('index');
                         <tr>
                             <td colspan="5">
                                 <div class="pagination">
+                                    <!-- paginacao -->
                                     <?php echo $this->Paginator->counter(array('format' => 'Página {:page} de {:pages}')); ?>
                                     <div class="pagination-links">
                                         <?php
@@ -131,7 +141,7 @@ echo $this->Html->css('index');
         </main>
     </div>
 
-    <!-- Modal do show -->
+    <!-- modal do view(jquery) -->
     <div id="viewModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -182,7 +192,7 @@ echo $this->Html->css('index');
         </div>
     </div>
 
-    <!-- Modal de Importação CSV -->
+    <!-- modal de import CSV -->
     <div id="importModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -219,7 +229,7 @@ echo $this->Html->css('index');
                     </div>
                 </div>
 
-                <!-- Informações do arquivo -->
+                <!-- informacoes do arquivo -->
                 <div class="file-preview" id="file-preview">
                     <div class="file-preview-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -268,7 +278,7 @@ $(document).ready(function() {
     // Modal de View
     $('.btn-view').on('click', function() {
         var id = $(this).data('id');
-        
+        // ajax principal para popular o modal de view
         $.ajax({
             url: '<?php echo $this->Html->url(array("action" => "view")); ?>/' + id,
             type: 'GET',
