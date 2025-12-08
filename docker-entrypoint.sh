@@ -22,5 +22,25 @@ chmod -R 777 /var/www/html/app/webroot/img
 
 echo "Permissões configuradas!"
 
+# Aguardar MySQL estar pronto
+echo "Aguardando MySQL..."
+while ! php -r "new PDO('mysql:host=mysql;dbname=doity', 'root', 'root');" 2>/dev/null; do
+    sleep 2
+done
+echo "MySQL está pronto!"
+
+# Rodar migrations e seed apenas na primeira vez
+if [ ! -f /var/www/html/.migrated ]; then
+    echo "Criando tabelas..."
+    cd /var/www/html
+    php app/Console/cake schema create --yes
+    
+    echo "Seedando banco de dados..."
+    php app/Console/cake seed
+    
+    touch /var/www/html/.migrated
+    echo "Migração e seed concluídos!"
+fi
+
 # Executar comando passado (apache2-foreground)
 exec "$@"

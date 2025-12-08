@@ -5,6 +5,7 @@ services:
       - "8080:80"
     volumes:
       - ./app/webroot/img/uploads:/var/www/html/app/webroot/img/uploads
+      - app-data:/var/www/html
     depends_on:
       - mysql
     networks:
@@ -25,6 +26,7 @@ services:
 
 volumes:
   mysql-data:
+  app-data:
 
 networks:
   app-network:
