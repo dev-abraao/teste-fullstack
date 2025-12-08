@@ -65,10 +65,6 @@ class ServiceProvider extends AppModel {
             )
         ),
         'description' => array(
-            'notBlank' => array(
-                'rule' => 'notBlank',
-                'message' => 'Descrição é obrigatória'
-            ),
             'maxLength' => array(
                 'rule' => array('maxLength', 500),
                 'message' => 'Descrição deve ter no máximo 500 caracteres'
