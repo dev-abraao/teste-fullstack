@@ -34,13 +34,10 @@ echo "MySQL está pronto!"
 if [ ! -f /var/www/html/.migrated ]; then
     echo "Criando tabelas..."
     cd /var/www/html
-    php app/Console/cake schema create --yes
-    
-    echo "Seedando banco de dados..."
-    php app/Console/cake seed
-    
+    app/Console/cake schema create --yes
+        
     touch /var/www/html/.migrated
-    echo "Migração e seed concluídos!"
+    echo "Migração concluída!"
 fi
 
 # Executar comando passado (apache2-foreground)
