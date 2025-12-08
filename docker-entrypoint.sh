@@ -19,6 +19,7 @@ chown -R www-data:www-data /var/www/html/app/tmp
 chmod -R 777 /var/www/html/app/tmp
 chown -R www-data:www-data /var/www/html/app/webroot/img
 chmod -R 777 /var/www/html/app/webroot/img
+chmod -R 777 /var/www/html/app/Console/cake
 
 echo "Permissões configuradas!"
 
