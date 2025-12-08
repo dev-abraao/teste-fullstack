@@ -15,23 +15,25 @@ echo $this->Html->css('edit');
         </header>
 
         <main>
-            <?php echo $this->Flash->render(); ?>
-
             <div class="form-container">
+                <!-- form -->
                 <?php echo $this->Form->create('ServiceProvider', array('type' => 'file', 'class' => 'form')); ?>
                 <?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 
                 <div class="form-row">
                     <label>Nome</label>
                     <div class="inputs-group">
+                        <!-- input nome sobrenome -->
                         <input type="text" name="data[ServiceProvider][first_name]" placeholder="Nome" id="ServiceProviderFirstName" value="<?php echo h($this->request->data['ServiceProvider']['first_name']); ?>">
                         <input type="text" name="data[ServiceProvider][last_name]" placeholder="Sobrenome" id="ServiceProviderLastName" value="<?php echo h($this->request->data['ServiceProvider']['last_name']); ?>">
                     </div>
+                    <!-- validacao nome -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.first_name')): ?>
                         <div class="error-message">
                             <?php echo $this->Form->error('ServiceProvider.first_name'); ?>
                         </div>
                     <?php endif; ?>
+                    <!-- validacao sobrenome -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.last_name')): ?>
                         <div class="error-message">
                             <?php echo $this->Form->error('ServiceProvider.last_name'); ?>
@@ -47,15 +49,17 @@ echo $this->Html->css('edit');
                                 <path d="M17.5 2.50004C17.5 1.58337 16.75 0.833374 15.8334 0.833374H2.50004C1.58337 0.833374 0.833374 1.58337 0.833374 2.50004M17.5 2.50004V12.5C17.5 13.4167 16.75 14.1667 15.8334 14.1667H2.50004C1.58337 14.1667 0.833374 13.4167 0.833374 12.5V2.50004M17.5 2.50004L9.16671 8.33337L0.833374 2.50004" stroke="#717680" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </span>
+                        <!-- input email -->
                         <input type="email" name="data[ServiceProvider][email]" id="ServiceProviderEmail" value="<?php echo h($this->request->data['ServiceProvider']['email']); ?>">
                     </div>
+                    <!-- validacao email -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.email')): ?>
                         <div class="error-message">
                             <?php echo $this->Form->error('ServiceProvider.email'); ?>
                         </div>
                     <?php endif; ?>
                 </div>
-                
+                <!-- input foto -->
                 <div class="form-row photo-row">
                     <label>Sua foto (deixe vazio para manter)<br><span class="photo-text">Ela aparecerá no seu perfil</span></label>
                     <div class="photo-input-container">
@@ -90,7 +94,7 @@ echo $this->Html->css('edit');
                         </div>
                     </div>
                 </div>
-
+                <!-- input telefone -->
                 <?php echo $this->Form->input('phone', array(
                     'label' => 'Telefone',
                     'id' => 'PhoneInput',
@@ -101,24 +105,28 @@ echo $this->Html->css('edit');
                 <div class="input text">
                     <label for="ServiceProviderService">Quais serviço você vai prestar?</label>
                     <div class="autocomplete-wrapper">
+                        <!-- input servico -->
                         <input type="text" name="data[ServiceProvider][service]" id="ServiceProviderService" placeholder="Digite ou selecione um serviço..." autocomplete="off" value="<?php echo h($this->request->data['ServiceProvider']['service']); ?>">
                         <div id="ServiceDropdown" class="autocomplete-dropdown"></div>
                     </div>
+                    <!-- validacao servico -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.service')): ?>
                         <div class="error-message">
                             <?php echo $this->Form->error('ServiceProvider.service'); ?>
                         </div>
                     <?php endif; ?>
                 </div>
-
+                <!-- input descricao -->
                 <?php echo $this->Form->input('description', array('label' => 'Descrição', 'type' => 'textarea')); ?>
 
                 <div class="input with-prefix price-field">
                     <label for="ServiceProviderPrice">Preço</label>
                     <div class="field-control">
                         <span class="input-prefix">R$</span>
+                        <!-- input preco -->
                         <input type="number" step="0.01" name="data[ServiceProvider][price]" id="ServiceProviderPrice" value="<?php echo h($this->request->data['ServiceProvider']['price']); ?>">
                     </div>
+                    <!-- validacao preco -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.price')): ?>
                         <div class="error-message">
                             <?php echo $this->Form->error('ServiceProvider.price'); ?>
@@ -127,6 +135,7 @@ echo $this->Html->css('edit');
                 </div>
 
                 <div class="form-actions">
+                    <!-- botoes footer do form -->
                     <?php echo $this->Html->link('Cancelar', array('action' => 'index'), array('class' => 'btn-cancel')); ?>
                     <?php echo $this->Form->end('Salvar'); ?>
                 </div>
@@ -139,7 +148,7 @@ echo $this->Html->css('edit');
         var suggestions = <?php echo json_encode(array_values($serviceSuggestions)); ?>;
         var input = document.getElementById('ServiceProviderService');
         var dropdown = document.getElementById('ServiceDropdown');
-
+        // dropdown de servicos
         function renderDropdown(filter) {
             dropdown.innerHTML = '';
             var hasResults = false;
@@ -166,7 +175,7 @@ echo $this->Html->css('edit');
         input.addEventListener('focus', function() { if (this.value.length > 0) renderDropdown(this.value); });
         input.addEventListener('input', function() { renderDropdown(this.value); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.autocomplete-wrapper')) dropdown.classList.remove('show'); });
-
+        // mascara telefone
         document.getElementById('PhoneInput').addEventListener('input', function(e) {
             var value = e.target.value.replace(/\D/g, '');
             if (value.length > 11) value = value.substring(0, 11);

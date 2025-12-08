@@ -5,9 +5,14 @@ App::uses('ConnectionManager', 'Model');
 
 class ServiceProvidersController extends AppController {
     // Aqui ficam as configurações do controller :)
+    
+    // layout custom
     public $layout = 'custom';
+    // models usados
     public $uses = array('ServiceProvider', 'Service');
+    // componentes usados
     public $components = array('Flash', 'Paginator');
+    // paginação padrão
     public $paginate = array(
         'limit' => 7,
         'order' => array(
@@ -22,7 +27,7 @@ class ServiceProvidersController extends AppController {
         if (!empty($this->request->query['search'])) {
             $search = $this->request->query['search'];
             $conditions['OR'] = array(
-                // Aqui poderiamos adicionar filtros adicionais, por exemplo, por serviço oferecido ou email
+                // Filtros de busca, incluindo todos os campos relevantes
                 'ServiceProvider.first_name LIKE' => '%' . $search . '%',
                 'ServiceProvider.last_name LIKE' => '%' . $search . '%',
                 'ServiceProvider.email LIKE' => '%' . $search . '%',
@@ -32,6 +37,7 @@ class ServiceProvidersController extends AppController {
             );
         }
 
+        // paginação com busca
         $this->Paginator->settings = array_merge($this->paginate, array(
             'conditions' => $conditions
         ));
@@ -43,6 +49,7 @@ class ServiceProvidersController extends AppController {
 
     public function create() {
         if ($this->request->is('post')) {
+            // Cria uma instância nova do modelo
             $this->ServiceProvider->create();
             
             // Upload de Foto
@@ -75,18 +82,21 @@ class ServiceProvidersController extends AppController {
                     
                     if (move_uploaded_file($photo['tmp_name'], $targetPath)) {
                         $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
+                    // Caso algum erro de diretório falhe, define como null
                     } else {
                         $this->request->data['ServiceProvider']['photo'] = null;
                     }
+                // Caso haja erro no upload, define como null
                 } else {
                     $this->request->data['ServiceProvider']['photo'] = null;
                 }
+            // Se nenhuma foto foi enviada define foto como null
             } else {
                 $this->request->data['ServiceProvider']['photo'] = null;
             }
-            
+            // Insere os dados na instância do modelo
             $this->ServiceProvider->set($this->request->data);
-            
+            // Caso valide e salve com sucesso, redireciona para a index com notificação de sucesso
             if ($this->ServiceProvider->validates()) {
                 if ($this->ServiceProvider->save($this->request->data)) {
                     $this->Flash->notification('Prestador cadastrado com sucesso!');
@@ -94,7 +104,7 @@ class ServiceProvidersController extends AppController {
                 }
             }
         }
-
+        // Sugestões de serviços para o autocomplete
         $serviceSuggestions = $this->Service->find('list', array('fields' => array('name', 'name')));
         $this->set(compact('serviceSuggestions'));
     }
@@ -149,25 +159,29 @@ class ServiceProvidersController extends AppController {
                     
                     if (move_uploaded_file($photo['tmp_name'], $targetPath)) {
                         $this->request->data['ServiceProvider']['photo'] = 'uploads/' . $filename;
+                    // Caso algum erro de diretório falhe, define como null
                     } else {
                         unset($this->request->data['ServiceProvider']['photo']); 
                     }
+                // Caso haja erro no upload, define como null
                 } else {
                     unset($this->request->data['ServiceProvider']['photo']); 
                 }
+            // Se nenhuma foto foi enviada define foto como null
             } else {
                 unset($this->request->data['ServiceProvider']['photo']); 
             }
-
+            // Se os dados sao válidos, salva e redireciona para a index com notificação de sucesso
             if ($this->ServiceProvider->save($this->request->data)) {
                 $this->Flash->notification('Prestador atualizado com sucesso!');
                 return $this->redirect(array('action' => 'index'));
             }
             $this->Flash->notification('Erro ao atualizar. Verifique os dados.', array('params' => array('class' => 'error')));
+        // Requisição GET, popula o formulário com os dados atuais do prestador
         } else {
             $this->request->data = $this->ServiceProvider->findById($id);
         }
-        
+        // Sugestões de serviços para o autocomplete
         $serviceSuggestions = $this->Service->find('list', array('fields' => array('name', 'name')));
         $this->set(compact('serviceSuggestions'));
     }
@@ -190,29 +204,29 @@ class ServiceProvidersController extends AppController {
     // não precisando também de libs extras somente para isso
     public function import() {
         if ($this->request->is('post')) {
-            
+            // Verifica se um arquivo foi enviado
             if (!empty($this->request->data['ServiceProvider']['csv_file']['tmp_name'])) {
                 $file = $this->request->data['ServiceProvider']['csv_file'];
-                
+                // Checa se é um CSV
                 $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
                 if (strtolower($extension) !== 'csv') {
                     $this->Flash->modalnotification('Por favor, envie um arquivo CSV válido.', array('params' => array('class' => 'error')));
                     return $this->redirect(array('action' => 'index'));
                 }
-
+                // Se o arquivo for válido, checa o tamanho
                 if ($file['error'] === UPLOAD_ERR_OK) {
                     $fileSize = filesize($file['tmp_name']);
                     if ($fileSize > 25 * 1024 * 1024) {
                         $this->Flash->modalnotification('O arquivo é muito grande. O tamanho máximo permitido é 25MB.', array('params' => array('class' => 'error')));
                         return $this->redirect(array('action' => 'index'));
                     }
-
+                    // trycatch principal caso ocorra erros na query de importação
                     try {
                         $db = ConnectionManager::getDataSource('default');
                         
                         // Usar caminho absoluto do arquivo temporário
                         $tmpPath = str_replace('\\', '/', $file['tmp_name']);
-                        
+                        // Query do bulk insert (LOAD DATA INFILE em MYSQL)
                         $bulkInsertQuery = "LOAD DATA LOCAL INFILE '" . $tmpPath . "' 
                             INTO TABLE service_providers
                             FIELDS TERMINATED BY ','
