@@ -1,12 +1,11 @@
-
 services:
   app:
     build: .
     ports:
       - "8080:80"
     volumes:
-      - ./app/tmp:/var/www/html/app/tmp
-      - ./app/webroot/img:/var/www/html/app/webroot/img
+      - ./app/webroot/img/uploads:/var/www/html/app/webroot/img/uploads
+      - app-data:/var/www/html
     depends_on:
       - mysql
     networks:
@@ -27,6 +26,7 @@ services:
 
 volumes:
   mysql-data:
+  app-data:
 
 networks:
   app-network:

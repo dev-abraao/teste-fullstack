@@ -22,8 +22,8 @@ echo $this->Html->css('create');
                     <label>Nome</label>
                     <div class="inputs-group">
                         <!-- Input nome sobrenome -->
-                        <input type="text" name="data[ServiceProvider][first_name]" value="<?php echo h($this->request->data['ServiceProvider']['first_name'] ?? ''); ?>" placeholder="Nome" id="ServiceProviderFirstName">
-                        <input type="text" name="data[ServiceProvider][last_name]" value="<?php echo h($this->request->data['ServiceProvider']['last_name'] ?? ''); ?>" placeholder="Sobrenome" id="ServiceProviderLastName">
+                        <input type="text" name="data[ServiceProvider][first_name]" value="<?php echo h($this->request->data['ServiceProvider']['first_name'] ?? ''); ?>" placeholder="Nome" id="ServiceProviderFirstName" required>
+                        <input type="text" name="data[ServiceProvider][last_name]" value="<?php echo h($this->request->data['ServiceProvider']['last_name'] ?? ''); ?>" placeholder="Sobrenome" id="ServiceProviderLastName" required>
                     </div>
                     <!-- validacao nome -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.first_name')): ?>
@@ -48,7 +48,7 @@ echo $this->Html->css('create');
                             </svg>
                         </span>
                         <!-- input email -->
-                        <input type="email" name="data[ServiceProvider][email]" value="<?php echo h($this->request->data['ServiceProvider']['email'] ?? ''); ?>" id="ServiceProviderEmail" placeholder="seuemail@exemplo.com">
+                        <input type="email" name="data[ServiceProvider][email]" value="<?php echo h($this->request->data['ServiceProvider']['email'] ?? ''); ?>" id="ServiceProviderEmail" placeholder="seuemail@exemplo.com" required>
                     </div>
                     <!-- validacao email -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.email')): ?>
@@ -100,7 +100,7 @@ echo $this->Html->css('create');
                 <div class="input text">
                     <label for="ServiceProviderService">Quais serviço você vai prestar?</label>
                     <div class="autocomplete-wrapper">
-                        <input type="text" name="data[ServiceProvider][service]" value="<?php echo h($this->request->data['ServiceProvider']['service'] ?? ''); ?>" id="ServiceProviderService" placeholder="Digite ou selecione um serviço..." autocomplete="off">
+                        <input type="text" name="data[ServiceProvider][service]" value="<?php echo h($this->request->data['ServiceProvider']['service'] ?? ''); ?>" id="ServiceProviderService" placeholder="Digite ou selecione um serviço..." autocomplete="off" required>
                         <div id="ServiceDropdown" class="autocomplete-dropdown"></div>
                     </div>
                     <!-- validacao servico -->
@@ -111,14 +111,14 @@ echo $this->Html->css('create');
                     <?php endif; ?>
                 </div>
                 <!-- input descricao -->
-                <?php echo $this->Form->input('description', array('label' => 'Descrição', 'type' => 'textarea', 'placeholder' => 'Conte-nos mais sobre o serviço oferecido...')); ?>
+                <?php echo $this->Form->input('description', array('label' => 'Descrição', 'type' => 'textarea', 'placeholder' => 'Conte-nos mais sobre o serviço oferecido...', 'required' => false)); ?>
 
                 <div class="input with-prefix price-field">
                     <label for="ServiceProviderPrice">Preço</label>
                     <div class="field-control">
                         <span class="input-prefix">R$</span>
                         <!-- input preco -->
-                        <input type="number" step="0.01" name="data[ServiceProvider][price]" value="<?php echo h($this->request->data['ServiceProvider']['price'] ?? ''); ?>" id="ServiceProviderPrice" placeholder="200,00">
+                        <input type="number" step="0.01" name="data[ServiceProvider][price]" value="<?php echo h($this->request->data['ServiceProvider']['price'] ?? ''); ?>" id="ServiceProviderPrice" placeholder="200,00" required>
                     </div>
                     <!-- validacao preco -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.price')): ?>

@@ -24,8 +24,8 @@ echo $this->Html->css('edit');
                     <label>Nome</label>
                     <div class="inputs-group">
                         <!-- input nome sobrenome -->
-                        <input type="text" name="data[ServiceProvider][first_name]" placeholder="Nome" id="ServiceProviderFirstName" value="<?php echo h($this->request->data['ServiceProvider']['first_name']); ?>">
-                        <input type="text" name="data[ServiceProvider][last_name]" placeholder="Sobrenome" id="ServiceProviderLastName" value="<?php echo h($this->request->data['ServiceProvider']['last_name']); ?>">
+                        <input type="text" name="data[ServiceProvider][first_name]" placeholder="Nome" id="ServiceProviderFirstName" value="<?php echo h($this->request->data['ServiceProvider']['first_name']); ?>" required>
+                        <input type="text" name="data[ServiceProvider][last_name]" placeholder="Sobrenome" id="ServiceProviderLastName" value="<?php echo h($this->request->data['ServiceProvider']['last_name']); ?>" required>
                     </div>
                     <!-- validacao nome -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.first_name')): ?>
@@ -50,7 +50,7 @@ echo $this->Html->css('edit');
                             </svg>
                         </span>
                         <!-- input email -->
-                        <input type="email" name="data[ServiceProvider][email]" id="ServiceProviderEmail" value="<?php echo h($this->request->data['ServiceProvider']['email']); ?>">
+                        <input type="email" name="data[ServiceProvider][email]" id="ServiceProviderEmail" value="<?php echo h($this->request->data['ServiceProvider']['email']); ?>" required>
                     </div>
                     <!-- validacao email -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.email')): ?>
@@ -106,7 +106,7 @@ echo $this->Html->css('edit');
                     <label for="ServiceProviderService">Quais serviço você vai prestar?</label>
                     <div class="autocomplete-wrapper">
                         <!-- input servico -->
-                        <input type="text" name="data[ServiceProvider][service]" id="ServiceProviderService" placeholder="Digite ou selecione um serviço..." autocomplete="off" value="<?php echo h($this->request->data['ServiceProvider']['service']); ?>">
+                        <input type="text" name="data[ServiceProvider][service]" id="ServiceProviderService" placeholder="Digite ou selecione um serviço..." autocomplete="off" value="<?php echo h($this->request->data['ServiceProvider']['service']); ?>" required>
                         <div id="ServiceDropdown" class="autocomplete-dropdown"></div>
                     </div>
                     <!-- validacao servico -->
@@ -117,14 +117,14 @@ echo $this->Html->css('edit');
                     <?php endif; ?>
                 </div>
                 <!-- input descricao -->
-                <?php echo $this->Form->input('description', array('label' => 'Descrição', 'type' => 'textarea')); ?>
+                <?php echo $this->Form->input('description', array('label' => 'Descrição', 'type' => 'textarea', 'required' => false)); ?>
 
                 <div class="input with-prefix price-field">
                     <label for="ServiceProviderPrice">Preço</label>
                     <div class="field-control">
                         <span class="input-prefix">R$</span>
                         <!-- input preco -->
-                        <input type="number" step="0.01" name="data[ServiceProvider][price]" id="ServiceProviderPrice" value="<?php echo h($this->request->data['ServiceProvider']['price']); ?>">
+                        <input type="number" step="0.01" name="data[ServiceProvider][price]" id="ServiceProviderPrice" value="<?php echo h($this->request->data['ServiceProvider']['price']); ?>" required>
                     </div>
                     <!-- validacao preco -->
                     <?php if ($this->Form->isFieldError('ServiceProvider.price')): ?>
