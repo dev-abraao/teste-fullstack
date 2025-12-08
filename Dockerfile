@@ -47,24 +47,18 @@ COPY . /var/www/html
 # instalar dependencias do Composer
 RUN composer install --no-interaction --no-dev --optimize-autoloader
 
-# ajustar permissoes
-RUN mkdir -p /var/www/html/app/tmp/cache/models \
-    && mkdir -p /var/www/html/app/tmp/cache/persistent \
-    && mkdir -p /var/www/html/app/tmp/logs \
-    && mkdir -p /var/www/html/app/tmp/sessions \
-    && mkdir -p /var/www/html/app/tmp/tests \
-    && chown -R www-data:www-data /var/www/html/app/tmp \
-    && chmod -R 777 /var/www/html/app/tmp \
-    && chown -R www-data:www-data /var/www/html/app/webroot \
-    && chmod -R 777 /var/www/html/app/webroot
-
 # configurar DocumentRoot do Apache para CakePHP
-ENV APACHE_DOCUMENT_ROOT /var/www/html/app/webroot
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/app/webroot
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# copiar script de entrada
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # expor porta 80
 EXPOSE 80
 
-# iniciar apache
+# usar script customizado
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
