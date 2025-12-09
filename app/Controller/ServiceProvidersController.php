@@ -171,6 +171,11 @@ class ServiceProvidersController extends AppController {
             } else {
                 unset($this->request->data['ServiceProvider']['photo']); 
             }
+
+            // remove a foto antiga
+            if ($this->ServiceProvider->field('photo') !== null) {
+                unlink(WWW_ROOT . 'img' . DS . $this->ServiceProvider->field('photo'));
+            } 
             // Se os dados sao válidos, salva e redireciona para a index com notificação de sucesso
             if ($this->ServiceProvider->save($this->request->data)) {
                 $this->Flash->notification('Prestador atualizado com sucesso!');
