@@ -1,81 +1,163 @@
-# Teste FullStack
-Este repositório contém o desafio técnico para a vaga de FullStack.
+# Teste FullStack - Abraão Andrade
 
-## 🎯 Objetivo  
-Implementar o desafio FullStack utilizando o stack exigido, com foco em fidelidade ao UX e comportamento funcional.
+Opa! Este repositório contém a solução para o desafio técnico da vaga de fullstack. Abaixo estão as instruções para rodar o projeto.
 
----
+## 📹 Vídeo de Demonstração
 
-## 🔗 Teste técnico (backend + lógica + instruções)  
-Link oficial do teste:  
-https://doity.notion.site/Teste-FullStack-b67c69625967440e97d48d475af366c7?pvs=74
+[Assista aqui](https://www.youtube.com/watch?v=v_0VNv89-cE)
 
 ---
 
-## 🎨 Design + UX (Figma)  
-Link do layout:  
-https://www.figma.com/design/pv3ebrXHaUZNHqsqR24Wvi/Desafio-Full-Stack?m=dev
+## 🐳 Rodando com Docker (Recomendado)
 
-### 🔐 Credenciais para acesso ao Figma  
-- Usuário: selecao@doity.com.br  
-- Senha: Selecao@dev123
-  
----
+### Pré-requisitos
+- Docker Desktop instalado
+- Git instalado
 
-## 🔗 Vídeo explicativo
-Link do vídeo:  
-https://www.loom.com/share/e820a6488cef45bbad345b1e6be8e799
+### Passos
 
----
+1. **Clone o repositório**
+```bash
+git clone https://github.com/dev-abraao/teste-fullstack.git
+cd teste-fullstack
+```
 
-## 🛠 Stack obrigatório  
-O candidato deve utilizar:
+2. **Checkout na branch develop ou release**
+```bash
+git checkout develop
+```
+ou
+```bash
+git checkout release
+```
 
-- PHP (CakePHP2)  
-- MySQL  
-- HTML  
-- CSS  
-- JavaScript  
-- jQuery  
+3. **Inicie os containers**
+```bash
+docker compose up --build
+```
 
----
+> **Nota:** Se você usa Docker versão anterior, utilize `docker-compose` ao invés de `docker compose`
 
-## 🧪 Entrega do teste  
-A entrega será feita pelo GitHub.
+4. **Acesse a aplicação**
+```
+http://localhost:8080
+```
 
-### Como enviar:
-1. Faça um **Fork** deste repositório  
-2. Desenvolva o projeto no seu fork  
-3. Crie um `README.md` no seu repositório contendo:
-   - como instalar o ambiente  
-   - como configurar o banco de dados  
-   - como inicializar o projeto  
-   - credenciais, se necessário  
-   - link do vídeo explicando o desenvolvimento  
-4. Envie o link do seu fork para avaliação  
-
----
-
-## 📹 Vídeo explicativo obrigatório  
-Grave um vídeo curto (Loom, YouTube não listado ou similar) explicando:
-
-- fluxo de funcionalidades  
-- demonstração da interface  
+### O que o Docker faz automaticamente
+- ✅ Cria o banco de dados `doity`
+- ✅ Configura as tabelas (schema)
+- ✅ Instala todas as dependências PHP
+- ✅ Ajusta permissões de pastas
 
 ---
 
-## 🧩 O que será avaliado
-- Fidelidade ao projeto de UX  
-- Fidelidade à lógica funcional  
-- Qualidade e clareza do código  
-- Organização de pastas e estrutura  
-- Boas práticas em CakePHP2  
-- Modelagem e queries do MySQL  
-- Uso correto de HTML, CSS, JS e jQuery  
-- Autonomia e capacidade de resolução de problemas  
+## 💻 Rodando Localmente
+
+### Pré-requisitos
+- PHP 7.4.33 (ou alguma versão compatível com CakePHP 2)
+- MySQL
+- Composer
+- Git
+
+> ⚠️ **Importante:** CakePHP 2 não é compatível com PHP 8+
+
+### Passos
+
+1. **Clone o repositório**
+```bash
+git clone https://github.com/dev-abraao/teste-fullstack.git
+cd teste-fullstack
+```
+2. **Checkout na branch develop ou release**
+```bash
+git checkout develop
+```
+ou
+```bash
+git checkout release
+```
+
+3. **Configure o banco de dados**
+
+Edite `app/Config/database.php`:
+
+```php
+public $default = array(
+    'datasource' => 'Database/Mysql',
+    'persistent' => false,
+    'host'     => 'localhost',      // seu host
+    'login'    => 'root',           // seu usuário
+    'password' => 'seu_password',   // sua senha
+    'database' => 'doity',          // nome do banco
+    'prefix'   => '',
+    'flags'    => array(
+        PDO::MYSQL_ATTR_LOCAL_INFILE => true,  // necessário para importar CSV
+    ),
+    'encoding' => 'utf8',
+);
+```
+
+4. **Crie o banco de dados**
+```bash
+mysql -u root -p
+```
+
+```sql
+CREATE DATABASE doity;
+EXIT;
+```
+
+5. **Instale as dependências**
+```bash
+composer install
+```
+
+6. **Configure permissões** (Linux/Mac)
+```bash
+chmod -R 777 app/Console/cake
+chmod -R 777 app/tmp
+chmod -R 777 app/webroot
+```
+
+7. **Execute o schema**
+```bash
+app/Console/cake schema create
+```
+
+Quando perguntado, digite `y` e pressione Enter para criar as tabelas.
+
+8. **Inicie o servidor PHP**
+```bash
+php -S localhost:8000 -t app/webroot/
+```
+
+9. **Acesse a aplicação**
+```
+http://localhost:8000
+```
 
 ---
 
-## 💬 Suporte  
-Se houver qualquer dúvida ou dificuldade (acesso a Doity, Figma, vídeos ou arquivo de links), entre em contato:  
-📩 lucyan@doity.com.br
+## 📋 Funcionalidades
+
+- ✅ Listar prestadores de serviço
+- ✅ Criar novo prestador (com upload de foto)
+- ✅ Editar prestador existente
+- ✅ Deletar prestador
+- ✅ Visualizar detalhes em modal
+- ✅ Buscar prestadores por nome, email ou serviço
+- ✅ Importar prestadores via CSV
+- ✅ Validações de formulário
+
+---
+
+## 🛠 Stack Utilizado
+
+- **Backend:** CakePHP 2.10.24
+- **Frontend:** HTML5, CSS3, JavaScript (jQuery)
+- **Banco de Dados:** MySQL 8.4.3
+- **Containerização:** Docker & Docker Compose
+- **Servidor:** Apache 2.4.62
+
+---
+
