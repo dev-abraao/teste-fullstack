@@ -70,8 +70,9 @@ class ServiceProvidersController extends AppController {
                         $this->Flash->notification('A foto é muito grande. O tamanho máximo permitido é 5MB.', array('params' => array('class' => 'error')));
                         return $this->redirect(array('action' => 'create'));
                     }
-
+                    // gera nome para o arquivo da foto
                     $filename = uniqid('photo_') . '.' . $extension;
+                    // diretório de upload
                     $uploadDir = WWW_ROOT . 'img' . DS . 'uploads' . DS;
                     
                     if (!is_dir($uploadDir)) {
@@ -134,21 +135,22 @@ class ServiceProvidersController extends AppController {
             // Upload de Foto
             if (!empty($this->request->data['ServiceProvider']['photo']['name'])) {
                 $photo = $this->request->data['ServiceProvider']['photo'];
-
+                // verificacao de tipo de arquivo
                 $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
                 if (!in_array(strtolower($extension), array('jpg', 'jpeg', 'png'))) {
                     $this->Flash->notification('Por favor, envie um arquivo de foto(JPG, JPEG, PNG) válido.', array('params' => array('class' => 'error')));
                     return $this->redirect(array('action' => 'edit', $id));
                 }
-
+                // verificacao de tamanho maximo 5MB
                 if ($photo['error'] === UPLOAD_ERR_OK) {
                     $photosize = filesize($photo['tmp_name']);
                     if ($photosize > 5 * 1024 * 1024) {
                         $this->Flash->notification('A foto é muito grande. O tamanho máximo permitido é 5MB.', array('params' => array('class' => 'error')));
                         return $this->redirect(array('action' => 'edit', $id));
                     }
-
+                    // gera nome para o arquivo da foto
                     $filename = uniqid('photo_') . '.' . $extension;
+                    // diretório de upload
                     $uploadDir = WWW_ROOT . 'img' . DS . 'uploads' . DS;
                     
                     if (!is_dir($uploadDir)) {
@@ -171,6 +173,11 @@ class ServiceProvidersController extends AppController {
             } else {
                 unset($this->request->data['ServiceProvider']['photo']); 
             }
+
+            // remove a foto antiga
+            if ($this->ServiceProvider->field('photo') !== null) {
+                unlink(WWW_ROOT . 'img' . DS . $this->ServiceProvider->field('photo'));
+            } 
             // Se os dados sao válidos, salva e redireciona para a index com notificação de sucesso
             if ($this->ServiceProvider->save($this->request->data)) {
                 $this->Flash->notification('Prestador atualizado com sucesso!');
